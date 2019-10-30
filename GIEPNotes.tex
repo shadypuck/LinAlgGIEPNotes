@@ -499,7 +499,7 @@ From \cite{bib:graph}.
         \item The subgraph will consist of four edges, one from each cube.
         \item The subgraph will have exactly two edges meeting at each vertex.
     \end{itemize}
-    \item Following these strictures, several graphs can be easily drawn. One such graph is shown in Figure \ref{fig:stack2graph} in correspondence with two columns.
+    \item Following these strictures, several graphs can be easily drawn. One such graph is shown in Figure \ref{fig:stack2graph} in correspondence with two columns (this is also the solution to Pause 1).
     \begin{figure}[h!]
         \centering
         \begin{tikzpicture}[
@@ -567,6 +567,108 @@ From \cite{bib:graph}.
         \end{tikzpicture}
         \caption{A front-to-back-solved stacking and graph.}
         \label{fig:stack2graph}
+    \end{figure}
+    \item Getting the front and back correct is comparably easy to getting the sides correct when playing with the toy.
+    \item Graphically, there must be a second subgraph that satisfies the above conditions and is \textbf{edge disjoint} from the first.
+    \item \textbf{Edge disjoint} (subgraphs): Two subgraphs that share no edges between them.
+    \item Figure \ref{fig:insanesolution} shows two edge disjoint subgraphs superimposed on the same graph.
+    \begin{itemize}
+        \item These subgraphs correspond to the columns on the left.
+        \item Note that the \textcolor{orange!90!black}{orange} subgraph corresponds to the front/back solution while the \textcolor{red!60!blue}{purple} subgraph corresponds to the left/right solution.
+    \end{itemize}
+    \begin{figure}[h!]
+        \centering
+        \begin{tikzpicture}[
+            node distance=3mm
+        ]
+            \colorlet{rex}{red!30}
+            \colorlet{blx}{blue!30}
+            \colorlet{grx}{green!30}
+            \colorlet{orx}{orange!90!black}
+            \colorlet{pux}{red!60!blue}
+    
+    
+            \begin{scope}[
+                node distance=-0.42pt,
+                every node/.style={draw,minimum size=6.3mm}
+            ]
+                \node (a1) at (1.8,0) [fill=blx]             {$B$};
+                \node (b1) [below=of a1,fill=grx] {$G$};
+                \node (c1) [below=of b1,fill=rex] {$R$};
+                \node (d1) [below=of c1]          {$W$};
+            \end{scope}
+            \node [above=of a1,font=\scshape] {Front};
+            \node [left=of a1,cyan] {Cube 4};
+            \node [left=of b1,cyan] {Cube 3};
+            \node [left=of c1,cyan] {Cube 2};
+            \node [left=of d1,cyan] {Cube 1};
+    
+            \begin{scope}[
+                node distance=-0.42pt,
+                every node/.style={draw,minimum size=6.3mm},
+                xshift=35mm
+            ]
+                \node (a2) [fill=rex]             {$R$};
+                \node (b2) [below=of a2]          {$W$};
+                \node (c2) [below=of b2,fill=grx] {$G$};
+                \node (d2) [below=of c2,fill=blx] {$B$};
+            \end{scope}
+            \node [above=of a2,font=\scshape] {Back};
+    
+            \begin{scope}[
+                node distance=-0.42pt,
+                every node/.style={draw,minimum size=6.3mm},
+                xshift=52mm
+            ]
+                \node (a3)                        {$W$};
+                \node (b3) [below=of a3,fill=blx] {$B$};
+                \node (c3) [below=of b3,fill=grx] {$G$};
+                \node (d3) [below=of c3,fill=rex] {$R$};
+            \end{scope}
+            \node [above=of a3,font=\scshape] {Right};
+    
+            \begin{scope}[
+                node distance=-0.42pt,
+                every node/.style={draw,minimum size=6.3mm},
+                xshift=69mm
+            ]
+                \node (a4) [fill=blx]             {$B$};
+                \node (b4) [below=of a4,fill=rex] {$R$};
+                \node (c4) [below=of b4]          {$W$};
+                \node (d4) [below=of c4,fill=grx] {$G$};
+            \end{scope}
+            \node [above=of a4,font=\scshape] {Left};
+    
+    
+            \begin{scope}[
+                node distance=2cm,
+                every node/.style={circle,draw,inner sep=2pt},
+                xshift=11cm
+            ]
+                \node (B) [fill=blx]            {};
+                \node (R) [right=of B,fill=rex] {};
+                \node (W) [below=of B]          {};
+                \node (G) [right=of W,fill=grx] {};
+            \end{scope}
+            \node [above left]  at (B.135)  {$B$};
+            \node [above right] at (R.45)   {$R$};
+            \node [below left]  at (W.-135) {$W$};
+            \node [below right] at (G.-45)  {$G$};
+            \draw [ultra thick,pux] (B.center) --                             node[above,black]{3} (R.center);
+            \draw [ultra thick,orx] (B.center) --                             node[left,black] {1} (W.center);
+            \draw [ultra thick,pux] (R.center) --                             node[left,black] {1} (G.center);
+            \draw [ultra thick,pux] (W.center) --                             node[above,black]{2} (G.center);
+            \draw [ultra thick,orx] (B.center) to[bend left=45]               node[above,black]{4} (R.center);
+            \draw                   (B.center) to[bend right=45]                                   (W.center);
+            \draw [ultra thick,orx] (R.center) to[bend left=45]               node[right,black]{2} (G.center);
+            \draw [ultra thick,orx] (W.center) to[bend right=45]              node[below,black]{3} (G.center);
+            \draw                   (W.center) --                                                  (R.center);
+            \draw [ultra thick,pux] (B.center) to[bend left=40,distance=13mm] node[left,black] {4} (W.center);
+            \node (Rcirc) [draw,circle through={(R.center)}] at ($(R.45)+(0.2,0.2)$)   {};
+            \node (Gcirc) [draw,circle through={(G.center)}] at ($(G.-45)+(0.2,-0.2)$) {};
+        \end{tikzpicture}
+        \caption{A solution to Instant Insanity.}
+        \label{fig:insanesolution}
     \end{figure}
 \end{itemize}
 \newpage
