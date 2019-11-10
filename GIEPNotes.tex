@@ -8,6 +8,7 @@
 \usepackage{amssymb}
 \usepackage{tikz}
 \usepackage[nottoc,notlof,notlot]{tocbibind}
+\usepackage{subcaption}
 
 \MakeOuterQuote{"}
 
@@ -24,6 +25,11 @@
 \newcommand{\Red}{$\color{red!30}R$}
 \newcommand{\Gre}{$\color{green!30}G$}
 \newcommand{\Whi}{$W$}
+
+\newcommand{\V}{\mathcal{V}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\K}{\mathcal{K}}
 
 \renewcommand{\labelitemiii}{\scriptsize$\blacksquare$}
 
@@ -316,6 +322,7 @@ From \cite{bib:Axler}.
 
 
 \section{Graphs}
+\subsection{A Gentle Introduction}
 From \cite{bib:graph}.
 \begin{itemize}
     \item Begins with the K\"{o}nigsberg Bridge Problem and Euler's solution by reducing the land masses to a mathematical \textbf{graph}.
@@ -476,15 +483,12 @@ From \cite{bib:graph}.
             \node [below left]  at (W.-135) {$W$};
             \node [below right] at (G.-45)  {$G$};
             \draw               (B.center) --                                            (R.center);
-            \draw [ultra thick] (B.center) --                             node[left] {1} (W.center);
             \draw               (R.center) --                                            (G.center);
-            \draw [ultra thick] (W.center) --                             node[above]{2} (G.center);
             \draw               (B.center) to[bend left=45]                              (R.center);
             \draw               (B.center) to[bend right=45]                             (W.center);
             \draw               (R.center) to[bend left=45]                              (G.center);
             \draw               (W.center) to[bend right=45]                             (G.center);
-            \draw [ultra thick] (W.center) --                             node[above]{3} (R.center);
-            \draw [ultra thick] (B.center) to[bend left=40,distance=13mm] node[left] {4} (W.center);
+            \draw [ultra thick] (R.center) -- node[above]{3} (W.center) to[bend right=40,distance=13mm] node[left] {4} (B.center) -- node[left] {1} (W.center) -- node[above]{2} (G.center);
             \node (Rcirc) [draw,circle through={(R.center)}] at ($(R.45)+(0.2,0.2)$)   {};
             \node (Gcirc) [draw,circle through={(G.center)}] at ($(G.-45)+(0.2,-0.2)$) {};
         \end{tikzpicture}
@@ -553,15 +557,12 @@ From \cite{bib:graph}.
             \node [below left]  at (W.-135) {$W$};
             \node [below right] at (G.-45)  {$G$};
             \draw               (B.center) --                                            (R.center);
-            \draw [ultra thick] (B.center) --                             node[left] {1} (W.center);
             \draw               (R.center) --                                            (G.center);
             \draw               (W.center) --                                            (G.center);
-            \draw [ultra thick] (B.center) to[bend left=45]               node[above]{4} (R.center);
             \draw               (B.center) to[bend right=45]                             (W.center);
-            \draw [ultra thick] (R.center) to[bend left=45]               node[right]{2} (G.center);
-            \draw [ultra thick] (W.center) to[bend right=45]              node[below]{3} (G.center);
             \draw               (W.center) --                                            (R.center);
             \draw               (B.center) to[bend left=40,distance=13mm]                (W.center);
+            \draw [ultra thick] (B.center) -- node[left] {1} (W.center) to[bend right=45] node[below]{3} (G.center) to[bend right=45] node[right]{2} (R.center) to[bend right=45] node[above]{4} cycle;
             \node (Rcirc) [draw,circle through={(R.center)}] at ($(R.45)+(0.2,0.2)$)   {};
             \node (Gcirc) [draw,circle through={(G.center)}] at ($(G.-45)+(0.2,-0.2)$) {};
         \end{tikzpicture}
@@ -572,10 +573,6 @@ From \cite{bib:graph}.
     \item Graphically, there must be a second subgraph that satisfies the above conditions and is \textbf{edge disjoint} from the first.
     \item \textbf{Edge disjoint} (subgraphs): Two subgraphs that share no edges between them.
     \item Figure \ref{fig:insanesolution} shows two edge disjoint subgraphs superimposed on the same graph.
-    \begin{itemize}
-        \item These subgraphs correspond to the columns on the left.
-        \item Note that the \textcolor{orange!90!black}{orange} subgraph corresponds to the front/back solution while the \textcolor{red!60!blue}{purple} subgraph corresponds to the left/right solution.
-    \end{itemize}
     \begin{figure}[h!]
         \centering
         \begin{tikzpicture}[
@@ -654,22 +651,398 @@ From \cite{bib:graph}.
             \node [above right] at (R.45)   {$R$};
             \node [below left]  at (W.-135) {$W$};
             \node [below right] at (G.-45)  {$G$};
-            \draw [ultra thick,pux] (B.center) --                             node[above,black]{3} (R.center);
-            \draw [ultra thick,orx] (B.center) --                             node[left,black] {1} (W.center);
-            \draw [ultra thick,pux] (R.center) --                             node[left,black] {1} (G.center);
-            \draw [ultra thick,pux] (W.center) --                             node[above,black]{2} (G.center);
-            \draw [ultra thick,orx] (B.center) to[bend left=45]               node[above,black]{4} (R.center);
             \draw                   (B.center) to[bend right=45]                                   (W.center);
-            \draw [ultra thick,orx] (R.center) to[bend left=45]               node[right,black]{2} (G.center);
-            \draw [ultra thick,orx] (W.center) to[bend right=45]              node[below,black]{3} (G.center);
             \draw                   (W.center) --                                                  (R.center);
-            \draw [ultra thick,pux] (B.center) to[bend left=40,distance=13mm] node[left,black] {4} (W.center);
             \node (Rcirc) [draw,circle through={(R.center)}] at ($(R.45)+(0.2,0.2)$)   {};
             \node (Gcirc) [draw,circle through={(G.center)}] at ($(G.-45)+(0.2,-0.2)$) {};
+            \draw [ultra thick,pux] (B.center) -- node[above,black]{3} (R.center);
+            \draw [ultra thick,pux] (R.center) -- node[left,black] {1} (G.center);
+            \draw [ultra thick,pux] (G.center) -- node[above,black]{2} (W.center);
+            \draw [ultra thick,pux] (W.center) to[bend right=40,distance=13mm] node[left,black] {4} (B.center);
+            \draw [ultra thick,orx] (B.center) -- node[left,black] {1} (W.center) to[bend right=45] node[below,black]{3} (G.center) to[bend right=45] node[right,black]{2} (R.center) to[bend right=45] node[above,black]{4} cycle;
         \end{tikzpicture}
         \caption{A solution to Instant Insanity.}
         \label{fig:insanesolution}
     \end{figure}
+    \begin{itemize}
+        \item These subgraphs correspond to the columns on the left.
+        \item Note that the \textcolor{orange!90!black}{orange} subgraph corresponds to the front/back solution while the \textcolor{red!60!blue}{purple} subgraph corresponds to the left/right solution.
+    \end{itemize}
+    \item \textbf{Connected} (graph): A graph where \dq[\\]{any two vertices are joined by a sequence of edges}{bib:graph}{282}
+\end{itemize}
+
+
+\subsection{Definitions and Basic Properties}
+\begin{itemize}
+    \item \textbf{Graph}: \dq{A pair $(\V,\E)$ of sets, $\V$ nonempty and each element of $\E$ a set of two distinct elements of $\V$}{bib:graph}{286}
+    \item \textbf{Vertex}: An element of $\V$.
+    \item \textbf{Edge}: An element of $\E$.
+    \item \textbf{End vertices} (of $e$): $v$ and $w$ where $v,w\in\V$ such that if $e$ is an edge, then $e=\{v,w\}$. \emph{Also known as} \textbf{ends}.
+    \begin{itemize}
+        \item Colloquially, edge $e$ \textbf{joins} vertices $v$ and $w$.
+        \item Set notation is often set aside so that edge $e$ can be referred to as edge $vw$ or $wv$.
+    \end{itemize}
+    \item \textbf{Incident} (vertices): The vertices $v$ and $w$ and the ends of edge $vw$.
+    \item \textbf{Incident} (edge): The edge $vw$ connecting vertices $v$ and $w$.
+    \item \textbf{Adjacent} (vertices): Two vertices that are the end vertices of an edge.
+    \item \textbf{Adjacent} (edges): Two edges that share a vertex.
+    \item \textbf{Degree} (of $v$): The number of edges incident with a vertex $v$. \emph{Also known as} $\deg v$.
+    \item \textbf{Even} (vertex): A vertex such that $\deg v$ is an even number.
+    \item \textbf{Odd} (vertex): A vertex such that $\deg v$ is an odd number.
+    \item \textbf{Isolated} (vertex): A vertex such that $\deg v=0$.
+    \item \textbf{Finite} (graph): A graph such that both sets $\V$ and $\E$ are finite.
+    \begin{itemize}
+        \item All graphs in this text will be finite.
+    \end{itemize}
+    \item $\G(\V,\E)$ denotes a graph $\G$ with vertex set $\V$ and edge set $\E$.
+    \begin{figure}[h!]
+        \centering
+        \begin{tikzpicture}[
+            node distance=1cm,
+            every node/.append style={circle,draw,inner sep=2pt}
+        ]
+            \node (A)            [label=above:$v_1$] {};
+            \node (B) [right=of A,label=above:$v_2$] {};
+            \node (C) [right=of B,label=above:$v_3$] {};
+            \node (D) [below=of A,label=below:$v_4$] {};
+            \node (E) [below=of B,label=below:$v_5$] {};
+            \node (F) [below=of C,label=below:$v_6$] {};
+            \draw (A.center) -- (F.center) -- (D.center) -- cycle;
+            \draw (B.center) -- (E.center);
+        \end{tikzpicture}
+        \caption{The graph $\G$.}
+        \label{fig:setgraph}
+    \end{figure}
+    \begin{itemize}
+        \item Normally, a graph is represented by a picture as opposed to its formal set definition.
+        \item For example, the graph $\G$ with vertex set $$\V=\left\{ v_1,v_2,v_3,v_4,v_5,v_6 \right\}$$ and edge set $$\E=\left\{ v_1v_4,v_1v_6,v_2v_5,v_4v_5,v_5v_6 \right\}$$ can be represented by Figure \ref{fig:setgraph}.
+    \end{itemize}
+    \item The above definition of a graph does not allow for \textbf{multiple edges} or \textbf{loops}, such as those in Figure \ref{fig:cubesgraph}.
+    \begin{itemize}
+        \item This is because most graphs of interest do not have these features.
+    \end{itemize}
+    \item \textbf{Multiple edges}: \dq{Several edges incident with the same two vertices}{bib:graph}{286}
+    \item \textbf{Loop}: \dq{An edge which is incident with only one vertex}{bib:graph}{286}
+    \item \textbf{Pseudograph}: A graph that may contain loops and/or multiple edges.
+    \item Note that loops are counted twice when calculating degree --- for instance, vertex \Gre\ in Figure \ref{fig:cubesgraph} has $\deg {\color{green!30}G}=6$.
+    \item There is no standard set of definitions of terms and symbols in graph theory, so make sure to check the glossary from book to book.
+    \item \textbf{Subgraph} (of $\G$): A graph $\G_1$ such that its vertex and edge sets are, respectively, subsets of the vertex and edge sets of $\G$.
+    \begin{itemize}
+        \item Subgraphs do not have to be drawn in the same manner as the original graph.
+    \end{itemize}
+    \item Denoting deletions:
+    \begin{itemize}
+        \item For the graph $\G$ containing edge $e$, the subgraph $\G_1$ without $e$ will be denoted $\G\ \backslash\ \{e\}$ herein.
+        \item For the graph $\G$ containing vertex $v$, the subgraph $\G_1$ without $v$ will be denoted $\G\ \backslash\ \{v\}$ herein.
+        \item Note that if the vertex $v$ is deleted, all edges incident with $v$ must also be deleted.
+    \end{itemize}
+    \begin{figure}[h!]
+        \centering
+        \begin{subfigure}[b]{0.1\linewidth}
+            \centering
+            \begin{tikzpicture}
+                \node [circle,draw,inner sep=2pt] {};
+            \end{tikzpicture}
+            \caption{$\K_1$}
+            \label{fig:5completesa}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.1\linewidth}
+            \centering
+            \begin{tikzpicture}[
+                node distance=1cm,
+                every node/.append style={circle,draw,inner sep=2pt}
+            ]
+                \node (A)              {};
+                \node (B) [right=of A] {};
+                \draw (A.center) -- (B.center);
+            \end{tikzpicture}
+            \caption{$\K_2$}
+            \label{fig:5completesb}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.1\linewidth}
+            \centering
+            \begin{tikzpicture}[
+                node distance=1cm,
+                every node/.append style={circle,draw,inner sep=2pt}
+            ]
+                \node (A)                                   {};
+                \node (B) [right=of A]                      {};
+                \node (C) at ($(A.center)!1!60:(B.center)$) {};
+                \draw (A.center) -- (B.center) -- (C.center) -- cycle;
+            \end{tikzpicture}
+            \caption{$\K_3$}
+            \label{fig:5completesc}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.1\linewidth}
+            \centering
+            \begin{tikzpicture}[
+                node distance=1cm,
+                every node/.append style={circle,draw,inner sep=2pt}
+            ]
+                \node (A)              {};
+                \node (B) [right=of A] {};
+                \node (C) [above=of B] {};
+                \node (D) [above=of A] {};
+                \draw (A.center) -- (B.center) -- (C.center) -- (D.center) -- cycle;
+                \draw (A.center) -- (C.center);
+                \draw (B.center) -- (D.center);
+            \end{tikzpicture}
+            \caption{$\K_4$}
+            \label{fig:5completesd}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.15\linewidth}
+            \centering
+            \begin{tikzpicture}[
+                node distance=1cm,
+                every node/.append style={circle,draw,inner sep=2pt}
+            ]
+                \node (A)                                     {};
+                \node (B) [right=of A]                        {};
+                \node (C) at ($(B.center)!1!-108:(A.center)$) {};
+                \node (D) at ($(C.center)!1!-108:(B.center)$) {};
+                \node (E) at ($(A.center)!1!108:(B.center)$)  {};
+                \draw (A.center) -- (B.center) -- (C.center) -- (D.center) -- (E.center) -- cycle;
+                \draw (B.center) -- (D.center) -- (A.center) -- (C.center) -- (E.center) -- cycle;
+            \end{tikzpicture}
+            \caption{$\K_5$}
+            \label{fig:5completese}
+        \end{subfigure}
+        \caption{The first five complete graphs.}
+        \label{fig:5completes}
+    \end{figure}
+    \item \textbf{Complete} (graph of $n$ vertices): The graph with $n$ vertices where any two vertices are adjacent. \emph{Also known as} $\K_n$.
+    \begin{figure}[h!]
+        \centering
+        \begin{subfigure}[b]{0.2\linewidth}
+            \centering
+            \begin{tikzpicture}[
+                node distance=1cm,
+                every node/.append style={circle,draw,inner sep=2pt}
+            ]
+                \node (A)              {};
+                \node (B) [right=of A] {};
+                \node (C) [right=of B] {};
+                \node (D) [above=of C] {};
+                \node (E) [above=of B] {};
+                \node (F) [above=of A] {};
+                \draw (A.center) -- (E.center) -- (C.center) -- (D.center) -- (B.center) -- (F.center) -- cycle;
+                \draw (B.center) -- (E.center);
+            \end{tikzpicture}
+            \caption{A bipartite graph.}
+            \label{fig:3bipartitesa}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.2\linewidth}
+            \centering
+            \begin{tikzpicture}[
+                node distance=1cm,
+                every node/.append style={circle,draw,inner sep=2pt}
+            ]
+                \node (A)                                     {};
+                \node (B) [right=of A]                        {};
+                \node (C) [right=of B]                        {};
+                \node (D) [above=of $(B)!0.5!(C)$,yshift=2pt] {};
+                \node (E) [above=of $(A)!0.5!(B)$,yshift=2pt] {};
+                \draw (A.center) -- (E.center) -- (B.center) -- (D.center) -- (C.center) -- (E.center);
+                \draw (A.center) -- (D.center);
+            \end{tikzpicture}
+            \caption{$\K_{2,3}$.}
+            \label{fig:3bipartitesb}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.2\linewidth}
+            \centering
+            \begin{tikzpicture}[
+                node distance=1cm,
+                every node/.append style={circle,draw,inner sep=2pt}
+            ]
+                \node (A)              {};
+                \node (B) [right=of A] {};
+                \node (C) [right=of B] {};
+                \node (D) [above=of C] {};
+                \node (E) [above=of B] {};
+                \node (F) [above=of A] {};
+                \draw (A.center) -- (E.center) -- (C.center) -- (D.center) -- (B.center) -- (F.center) -- cycle;
+                \draw (B.center) -- (E.center);
+                \draw (A.center) -- (D.center);
+                \draw (C.center) -- (F.center);
+            \end{tikzpicture}
+            \caption{$\K_{3,3}$.}
+            \label{fig:3bipartitesc}
+        \end{subfigure}
+        \caption{Three bipartite graphs, two of which are complete bipartite.}
+        \label{fig:3bipartites}
+    \end{figure}
+    \item \textbf{Bipartite} (graph): A graph whose vertices can be partitioned into two (disjoint) sets $\V_1$ and $\V_2$ such that every edge joins a vertex in $\V_1$ with a vertex in $\V_2$.
+    \begin{itemize}
+        \item These sets are called \textbf{bipartition sets}.
+        \item A graph that can be drawn such that no two top vertices are adjacent and no two bottom vertices are adjacent.
+    \end{itemize}
+    \item \textbf{Complete bipartite} (graph): A bipartite graph in which every vertex $v\in\V_1$ is incident with every vertex $w\in\V_2$.
+    \begin{itemize}
+        \item The complete bipartite graph with $m$ and $n$ vertices in each respective bipartition set $\V_1$ and $\V_2$ is denoted $\K_{m,n}$.
+        \item A bipartite graph that can be drawn such that every top vertex is adjacent to every bottom vertex.
+    \end{itemize}
+    \item Note that $\K_1$ is technically bipartite since bipartition sets are not required to be nonempty.
+    \item Note that a graph is bipartite \dq{if and only if its vertices can be colored with two colors such that every edge has ends of different colors}{bib:graph}{289}
+    \item A bipartite graph can contain no \textbf{triangles}.
+    \item \textbf{Triangle} (in a graph): A set of three vertices with an edge joining each pair.
+    \item \dq{The sum of the degrees of the vertices of a pseudograph is an even number equal to twice the number of edges}{bib:graph}{290} Symbolically, if $\G(\V,\E)$ is a pseudograph, then the following holds.
+    \begin{equation*}
+        \sum_{v\in\V}\deg v=2|\E|
+    \end{equation*}
+    \begin{itemize}
+        \item Because each edge gets counted twice --- once at each vertex it touches. A loop gets counted twice for the same vertex.
+        \item Example: How many edges does $\K_{m,n}$ have?
+        \begin{itemize}
+            \item $\K_{m,n}$ has $m$ vertices of degree $n$ and $n$ vertices of degree $m$. Therefore,
+            \begin{equation*}
+                \sum_{v\in\V}\deg v=mn+nm=2mn=2|\E|
+            \end{equation*}
+            so the number of edges is equal to $m\times n$.
+        \end{itemize}
+    \end{itemize}
+    \item \textbf{Degree sequence} (of $\G$): The degrees $d_1,\dots,d_n$ of the vertices $v_1,\dots,v_n$ of a graph (or pseudograph) $\G$ ordered such that $d_1\geq\dots\geq d_n$.
+    \item \dq{The number of odd vertices in a pseudograph is even}{bib:graph}{290}
+    \begin{itemize}
+        \item The sum of the degrees of the vertices of a pseudograph is an even number, and the sum of the degrees of the even vertices is an even number. Thus, the sum of the degrees of the odd vertices must be even. Since only the sum of an even number of odd numbers is even, there must be an even number of odd vertices.
+    \end{itemize}
+\end{itemize}
+
+
+\subsection{Isomorphism}
+\begin{itemize}
+    \item There is a distinction between a graph and its picture because a graph is pair of sets whereas its picture can be drawn many different ways.
+    \begin{figure}[h!]
+        \centering
+        \footnotesize
+        \begin{subfigure}[b]{0.15\linewidth}
+            \centering
+            \begin{tikzpicture}[
+                node distance=1cm,
+                every node/.append style={circle,draw,inner sep=2pt}
+            ]
+                \node (A)            [label=below:$A$] {};
+                \node (B) [right=of A,label=below:$B$] {};
+                \node (C) [above=of B,label=above:$C$] {};
+                \node (D) [above=of A,label=above:$D$] {};
+                \draw (A.center) -- (B.center) -- (C.center) -- (D.center) -- cycle;
+            \end{tikzpicture}
+            \caption{$\G_1$.}
+            \label{fig:isomorphica}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.15\linewidth}
+            \centering
+            \begin{tikzpicture}[
+                node distance=1cm,
+                every node/.append style={circle,draw,inner sep=2pt}
+            ]
+                \node (A)            [label=below:$A$] {};
+                \node (B) [right=of A,label=below:$B$] {};
+                \node (C) [above=of A,label=above:$C$] {};
+                \node (D) [above=of B,label=above:$D$] {};
+                \draw (A.center) -- (B.center) -- (C.center) -- (D.center) -- cycle;
+            \end{tikzpicture}
+            \caption{$\G_2$.}
+            \label{fig:isomorphicb}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.15\linewidth}
+            \centering
+            \begin{tikzpicture}[
+                node distance=1cm,
+                every node/.append style={circle,draw,inner sep=2pt}
+            ]
+                \node (A)            [label=below:$A$] {};
+                \node (B) [right=of A,label=below:$B$] {};
+                \node (C) [above=of B,label=above:$C$] {};
+                \node (D) [above=of A,label=above:$D$] {};
+                \draw (A.center) -- (B.center) -- (C.center);
+            \end{tikzpicture}
+            \caption{$\G_3$.}
+            \label{fig:isomorphicc}
+        \end{subfigure}
+        \caption{$\G_1$ and $\G_2$ are isomorphic, but neither is isomorphic to $\G_3$.}
+        \label{fig:isomorphic}
+    \end{figure}
+    \item \textbf{Isomorphic} (graphs): Two graphs $\G_1=\G_1(\V_1,\E_1)$ and $\G_2=\G_2(\V_2,\E_2)$ such that there exists a one-to-one function $\varphi$ from $\V_1$ onto $\V_2$ such that\dots
+    \begin{itemize}
+        \item if $vw$ is an edge in $\E_1$, then $\varphi(v)\varphi(w)$ is an edge in $\E_2$, and
+        \item every edge in $\E_2$ has the form $\varphi(v)\varphi(w)$ for some edge $vw\in\E_1$.
+    \end{itemize}
+    \item \textbf{Isomorphism}: A one-to-one function $\varphi$ from $\G_1$ to $\G_2$.
+    \item Two isomorphic graphs $\G_1$ and $\G_2$ are denoted $\G_1\cong\G_2$.
+    \item An isomorphism from $\G_1$ to $\G_2$ is denoted (herein) $\varphi:\G_1\rightarrow\G_2$.
+    \item The definition of isomorphism is naturally symmetric --- $\G_1\cong\G_2\Rightarrow\G_2\cong\G_1$.
+    \item Likewise, $\varphi:\G_1\rightarrow\G_2\Rightarrow\varphi^{-1}:\G_2\rightarrow\G_1$.
+    \item To avoid ambiguity, say that two graphs "are isomorphic."
+    \item Isomorphisms relabel vertices without changing any incidence relations, i.e., two graphs are isomorphic if and only if there exists a \textbf{bijection} between their sets that "preserves incidence relations."
+    \item Isomorphisms can be written down explicitly.
+    \begin{figure}[h!]
+        \centering
+        \begin{subfigure}[b]{0.15\linewidth}
+            \centering
+            \begin{tikzpicture}[
+                node distance=1cm,
+                every node/.append style={circle,draw,inner sep=2pt}
+            ]
+                \footnotesize
+                \node (A)            [label=below:$A$] {};
+                \node (B) [right=of A,label=below:$B$] {};
+                \node (C) [above=of B,label=above:$C$] {};
+                \node (D) [above=of A,label=above:$D$] {};
+                \draw (A.center) -- (B.center) -- (C.center) -- (D.center) -- cycle;
+            \end{tikzpicture}
+            \caption{$\G_1$.}
+            \label{fig:isomorphisma}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.15\linewidth}
+            \centering
+            \begin{tikzpicture}[
+                node distance=1cm,
+                every node/.append style={circle,draw,inner sep=2pt}
+            ]
+                \node (A)            [label=below:$u$] {};
+                \node (B) [right=of A,label=below:$v$] {};
+                \node (C) [above=of A,label=above:$x$] {};
+                \node (D) [above=of B,label=above:$w$] {};
+                \draw (A.center) -- (B.center) -- (C.center) -- (D.center) -- cycle;
+            \end{tikzpicture}
+            \caption{$\G_2$.}
+            \label{fig:isomorphismb}
+        \end{subfigure}
+        \caption{Isomorphisms as explicit functions.}
+        \label{fig:isomorphism}
+    \end{figure}
+    \begin{itemize}
+        \item The isomorphism between the vertices in Figures \ref{fig:isomorphisma} and \ref{fig:isomorphismb} (recall Figures \ref{fig:isomorphica} and \ref{fig:isomorphicb}) can be denoted as follows.
+        \begin{equation*}
+            \varphi(u)=A,\ \varphi(v)=B,\ \varphi(w)=D,\ \varphi(x)=C
+        \end{equation*}
+    \end{itemize}
+    \item Isomorphisms are very important in mathematics.
+    \begin{itemize}
+        \item Although the term "isomorphism" may be new, the concept is not --- $0.5$ and $\frac{2}{4}$ are isomorphic objects.
+        \item They are \textbf{symmetric}, as previously mentioned.
+        \item They are also \textbf{reflexive}: $\G\cong\G$ for any graph $\G$.
+        \begin{itemize}
+            \item Because the map $\G\rightarrow\G$ (an identity) is an isomorphism.
+        \end{itemize}
+        \item They are also \textbf{transitive}: $\G_1\cong\G_2\textsc{ and }\G_2\cong\G_3\Rightarrow\G_1\cong\G_3$.
+        \begin{itemize}
+            \item Because if $\varphi_1:\G_1\rightarrow\G_2$ and $\varphi_2:\G_2\rightarrow\G_3$ are isomorphisms, then so is the composition $\varphi_1\circ\varphi_2:\G_1\rightarrow\G_3$.
+        \end{itemize}
+    \end{itemize}
+    \item The set of all graphs is partitioned into disjoint equivalence classes known as \textbf{isomorphism classes}.
+    \item \textbf{Isomorphism class}: The set of all graphs $\G$ that are isomorphic to one another.
+    \begin{itemize}
+        \item In Figure \ref{fig:isomorphic}, $\G_1$ and $\G_2$ are in the same isomorphism class while $\G_1$ and $\G_3$, and $\G_2$ and $\G_3$ are not.
+    \end{itemize}
+    \item It is often difficult to prove that graphs are isomorphic, but easy to prove that they are not.
+    \item \dq{If $\G_1$ and $\G_2$ are isomorphic graphs, then $\G_1$ and $\G_2$ have the
+    \begin{itemize}
+        \item same number of vertices,
+        \item same number of edges, and
+        \item same degree sequences}{bib:graph}{297}
+    \end{itemize}
+    \item Note that the converses of the above qualities are not necessarily true --- two graphs with the same number of vertices are not necessarily isomorphic.
 \end{itemize}
 \newpage
 
