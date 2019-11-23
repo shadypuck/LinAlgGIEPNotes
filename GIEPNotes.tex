@@ -14,7 +14,7 @@
 
 \numberwithin{figure}{section}
 
-\usetikzlibrary{calc,positioning,through}
+\usetikzlibrary{calc,positioning,through,matrix,decorations.markings,shapes.geometric}
 
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\C}{\mathbb{C}}
@@ -30,6 +30,8 @@
 \newcommand{\E}{\mathcal{E}}
 \newcommand{\G}{\mathcal{G}}
 \newcommand{\K}{\mathcal{K}}
+
+\newcommand{\T}{\text{T}}
 
 \renewcommand{\labelitemiii}{\scriptsize$\blacksquare$}
 
@@ -1043,6 +1045,415 @@ From \cite{bib:graph}.
         \item same degree sequences}{bib:graph}{297}
     \end{itemize}
     \item Note that the converses of the above qualities are not necessarily true --- two graphs with the same number of vertices are not necessarily isomorphic.
+\end{itemize}
+\newpage
+
+
+
+\section{Applications}
+\subsection{Graphs and Networks}
+From \cite{bib:Strang}.
+\begin{itemize}
+    \item Goal is to show how graphs illuminate the Fundamental Theorem of Linear Algebra.
+    \item \textbf{Incidence matrix} (of a graph): A matrix describing how $n$ nodes (of a graph) are connected by $m$ edges.
+    \begin{itemize}
+        \item \dq{Every entry of an incidence matrix is a $0$ or $1$ or $-1$}{bib:Strang}{420}
+        \item Because of this, all four subspaces and reduced versions also have only these three entries.
+    \end{itemize}
+    \begin{align*}
+        A &=
+        \begin{bmatrix}
+            -1 & 1  & 0  & 0\\
+            -1 & 0  & 1  & 0\\
+            0  & -1 & 1  & 0\\
+            -1 & 0  & 0  & 1\\
+            0  & -1 & 0  & 1\\
+            0  & 0  & -1 & 1
+        \end{bmatrix}
+        &
+        U &=
+        \begin{bmatrix}
+            -1 & 1  & 0  & 0\\
+            0  & -1 & 1  & 0\\
+            0  & 0  & -1 & 1\\
+            0  & 0  & 0  & 0\\
+            0  & 0  & 0  & 0\\
+            0  & 0  & 0  & 0
+        \end{bmatrix}
+    \end{align*}
+    \item Consider the example incidence matrix above and its upper-triangular equivalent.
+    \begin{itemize}
+        \item $C(A)=\left\{
+        \begin{bmatrix}
+            -1\\
+            -1\\
+            0\\
+            -1\\
+            0\\
+            0
+        \end{bmatrix},
+        \begin{bmatrix}
+            1\\
+            0\\
+            -1\\
+            0\\
+            -1\\
+            0
+        \end{bmatrix},
+        \begin{bmatrix}
+            0\\
+            1\\
+            1\\
+            0\\
+            0\\
+            -1
+        \end{bmatrix}
+        \right\}$
+        \item $C(A^\T)=\left\{
+        \begin{bmatrix}
+            -1\\
+            1\\
+            0\\
+            0
+        \end{bmatrix},
+        \begin{bmatrix}
+            0\\
+            -1\\
+            1\\
+            0
+        \end{bmatrix},
+        \begin{bmatrix}
+            0\\
+            0\\
+            -1\\
+            1
+        \end{bmatrix}
+        \right\}$
+        \item $N(A)=\left\{
+        \begin{bmatrix}
+            1\\
+            1\\
+            1\\
+            1
+        \end{bmatrix}
+        \right\}$
+        \item Every vector in $N(A)$ is perpendicular to every vector in $C(A^\T)$, i.e., the subspaces are orthogonal (see Figure \ref{fig:4spaces}).
+        \begin{figure}[h!]
+            \centering
+            \begin{tikzpicture}[
+                node distance=0pt,
+                recta/.style n args={4}{draw,shape=trapezium,trapezium left angle=90,shape border uses incircle,trapezium right angle=90,shape border rotate=#1,trapezium stretches=true,minimum width=#2,minimum height=#3,align=center,text width=#4}
+            ]
+                \begin{scope}
+                    \node (a) [recta={45}{4cm}{3cm}{1cm},label=120:$\dim r$] {row space of $A$};
+                    \node (b) [recta={-45}{3cm}{0cm}{1.5cm},label=-120:$\dim n-r$,label=104:$\R^n$,below=3.65mm of a.-94] {nullspace of $A$};
+                    \clip (a.-80) -- (a.-98) -- (b.80);
+                    \node [recta={45}{6mm}{6mm}{0cm}] at (a.-98) {};
+                \end{scope}
+                \begin{scope}[xshift=10cm]
+                    \node (c) [recta={120}{4cm}{3cm}{1.5cm},label=60:$\dim r$] {column space of $A$};
+                    \node (d) [recta={30}{3cm}{0cm}{1.5cm},label=-60:$\dim m-r$,label=58:$\R^m$,below=15.5mm of c.-127,xshift=-0.1pt] {nullspace of $A^\T$};
+                    \clip (c.-105) -- (c.-97) -- (d.90);
+                    \node [recta={30}{6mm}{6mm}{0cm}] at (c.-97) {};
+                \end{scope}
+            \end{tikzpicture}
+            \caption{The four subspaces with their dimensions and orthogonality.}
+            \label{fig:4spaces}
+        \end{figure}
+        \begin{itemize}
+            \item This is demonstrated by the fact that the dot product of every basis vector with every other basis vector between subspaces is 0.
+        \end{itemize}
+        \item The implication of this is that \dq{equal voltages produce no current}{bib:Strang}{420}
+    \end{itemize}
+    \item \textbf{Column space} (of an $m$ by $n$ matrix $A$): The linear combinations of the column vectors of $A$. A subspace of $\R^m$. Exactly all possible matrix-vector products $Ax$. \emph{Also known as} $C(A)$.
+    \item \textbf{Row space} (of an $m$ by $n$ matrix $A$): The linear combinations of the row vectors (the column vectors of $A^\T$). A subspace of $\R^n$. Exactly all possible matrix-vector products $A^\T x$. \emph{Also known as} $C(A^\text{T})$.
+    \item \textbf{Nullspace} (of an $m$ by $n$ matrix $A$): A subspace of $\R^n$ containing every $x$ that satisfies $Ax=0$. \emph{Also known as} $N(A)$.
+    \item \textbf{Left nullspace} (of an $m$ by $n$ matrix $A$): A subspace of $\R^m$ containing every $y$ that satisfies $A^\T y-0$. So named because, when written $y^\T A=0^T$ (with $y^\T$ to the left of $A$), $y$ combines the rows of $A$. \emph{Also known as} $N(A^\T)$.
+    \item \textbf{Dimension} (of a vector space $V$): A function that gives the number of basis vectors of $V$. \emph{Also known as} $\dim V$.
+    \item Two central laws of linear algebra:
+    \begin{itemize}
+        \item $\dim C(A)=\dim C(A^\T)$
+        \item $\dim C(A)+\dim N(A)=n$
+    \end{itemize}
+    \begin{figure}[h!]
+        \centering
+        \begin{subfigure}[b]{0.4\linewidth}
+            \centering
+            \begin{tikzpicture}[
+                every node/.style={circle,draw,inner sep=2pt},
+                every edge/.append style={decoration={markings,
+                    mark=at position 0.5 with \arrow{<}
+                },postaction={decorate}},
+                label distance=-1mm
+            ]
+                \node (1) at (90:2)   {1};
+                \node (2) at (-150:2) {2}
+                    edge node[draw=white,label=left:{\footnotesize1}] {} (1)
+                ;
+                \node (3) at (-30:2)  {3}
+                    edge node[draw=white,label=right:{\footnotesize2}]{} (1)
+                    edge node[draw=white,label=below:{\footnotesize3}]{} (2)
+                ;
+                \node (4)             {4}
+                    edge node[draw=white,label=right:{\footnotesize4}]{} (1)
+                    edge node[draw=white,label=below:{\footnotesize5}]{} (2)
+                    edge node[draw=white,label=below:{\footnotesize6}]{} (3)
+                ;
+            \end{tikzpicture}
+            \caption{A directed graph.}
+            \label{fig:compgraphincia}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.4\linewidth}
+            \centering
+            \begin{tikzpicture}[
+                every left delimiter/.style={xshift=1ex},
+                every right delimiter/.style={xshift=-1ex}
+            ]
+                \matrix (m) [nodes={minimum width=6mm},matrix of math nodes,left delimiter={[},right delimiter={]}] {
+                    -1 & 1  & 0  & 0\\
+                    -1 & 0  & 1  & 0\\
+                    0  & -1 & 1  & 0\\
+                    -1 & 0  & 0  & 1\\
+                    0  & -1 & 0  & 1\\
+                    0  & 0  & -1 & 1\\
+                };
+                \foreach \x in {1,2,3,4} {
+                    \node [circle,draw,node distance=3ex,inner sep=2pt,above=of m-1-\x] {\x};
+                }
+                \node at ([yshift=15mm]$(m-1-2)!0.5!(m-1-3)$) {\textbf{node}};
+                \foreach \y in {1,...,6} {
+                    \node [node distance=3ex,inner sep=2pt,right=of m-\y-4] {\y};
+                }
+                \node at ([xshift=16mm]$(m-3-4)!0.5!(m-4-4)$) {\textbf{edge}};
+            \end{tikzpicture}
+            \caption{An incidence matrix.}
+            \label{fig:compgraphincib}
+        \end{subfigure}
+        \caption{A complete graph ($\K_4$) and its incidence matrix.}
+        \label{fig:compgraphinci}
+    \end{figure}
+    \item Because the graph in Figure \ref{fig:compgraphincia} has 4 nodes and 6 edges, the incidence matrix in Figure \ref{fig:compgraphincib} has $m=6$ and $n=4$.
+    \item The values in row 1 mean that edge 1 flows out of node 1 and into node 2.
+    \item \textbf{Directed graph}: A graph where all edges have an associated direction.
+    \begin{figure}[h!]
+        \centering
+        \begin{subfigure}[b]{0.4\linewidth}
+            \centering
+            \begin{tikzpicture}[
+                every node/.style={circle,draw,inner sep=2pt},
+                every edge/.append style={decoration={markings,
+                    mark=at position 0.5 with \arrow{<}
+                },postaction={decorate}},
+                label distance=-1mm
+            ]
+                \node (1) at (90:2)   {1};
+                \node (2) at (-150:2) {2}
+                    edge node[draw=white,label=left:{\footnotesize1}] {} (1)
+                ;
+                \node (3) at (-30:2)  {3}
+                    edge node[draw=white,label=below:{\footnotesize2}]{} (2)
+                ;
+                \node (4)             {4}
+                    edge node[draw=white,label=below:{\footnotesize3}]{} (3)
+                ;
+            \end{tikzpicture}
+            \caption{A tree with no loops.}
+            \label{fig:compgraphrefa}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.4\linewidth}
+            \centering
+            \begin{tikzpicture}[
+                every left delimiter/.style={xshift=1ex},
+                every right delimiter/.style={xshift=-1ex}
+            ]
+                \matrix (m) [nodes={minimum width=6mm},matrix of math nodes,left delimiter={[},right delimiter={]}] {
+                    -1 & 1  & 0  & 0\\
+                    0  & -1 & 1  & 0\\
+                    0  & 0  & -1 & 1\\
+                };
+                \foreach \x in {1,2,3,4} {
+                    \node [circle,draw,node distance=3ex,inner sep=2pt,above=of m-1-\x] {\x};
+                }
+                \node at ([yshift=15mm]$(m-1-2)!0.5!(m-1-3)$) {\textbf{node}};
+                \foreach \y in {1,...,3} {
+                    \node [node distance=3ex,inner sep=2pt,right=of m-\y-4] {\y};
+                }
+                \node at ([xshift=16mm]m-2-4) {\textbf{edge}};
+            \end{tikzpicture}
+            \caption{$\text{ref}(A)$.}
+            \label{fig:compgraphrefb}
+        \end{subfigure}
+        \caption{The tree corresponding to the row eschelon form of the previous incidence matrix.}
+        \label{fig:compgraphref}
+    \end{figure}
+    \item \textbf{Tree}: A graph with no closed loops.
+    \item The setups in Figure \ref{fig:compgraphinci} and \ref{fig:compgraphref} are opposites --- the former has the maximum number of edges ($\frac{1}{2}n(n-2)$) while the latter has the minimum ($m=n-1$).
+    \item \dq{Elimination reduces every graph to a tree}{bib:Strang}{423}
+    \item Row space:
+    \begin{itemize}
+        \item When edges form a loop, some rows must be dependent.
+        \item Independent rows come from trees.
+        \item Flow along the arrow counts as positive while flow against the arrow counts as negative.
+    \end{itemize}
+    \item Column space:
+    \begin{equation*}
+        Ax=
+        \begin{bmatrix}
+            -1 & 1  & 0  & 0\\
+            -1 & 0  & 1  & 0\\
+            0  & -1 & 1  & 0\\
+            -1 & 0  & 0  & 1\\
+            0  & -1 & 0  & 1\\
+            0  & 0  & -1 & 1
+        \end{bmatrix}
+        \begin{bmatrix}
+            x_1\\
+            x_2\\
+            x_3\\
+            x_4
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            x_2-x_1\\
+            x_3-x_1\\
+            x_3-x_2\\
+            x_4-x_1\\
+            x_4-x_2\\
+            x_4-x_3
+        \end{bmatrix}
+    \end{equation*}
+    \begin{itemize}
+        \item The unknowns in the $x$ vector represent voltages or potentials.
+        \item The unknowns in the $Ax$ vector represent voltage differences or potential difference across the edges.
+        \item These differences cause flows.
+        \item \textbf{Kirchoff's voltage law}: \dq{The components of $Ax$ add to zero around every loop}{bib:Strang}{426}
+    \end{itemize}
+    \item Meaning of the nullspace:
+    \begin{itemize}
+        \item When all four potentials are equal, there is no current.
+        \item The potentials can be raised and lowered by $\begin{bmatrix}c\\c\\c\\c\end{bmatrix}$ without changing the differences.
+        \begin{itemize}
+            \item Similar to how $f(x)$ can be raised and lowered by $C$ without changing its derivative.
+        \end{itemize}
+        \item Linear algebra adds $x_n$ to a particular solution.
+        \begin{itemize}
+            \item Calculus adds $C$ to a particular solution of an integral.
+        \end{itemize}
+        \item The nullspace disappears when any value of $x$ is set to a constant.
+        \begin{itemize}
+            \item $C$ disappears during a definite integral.
+        \end{itemize}
+    \end{itemize}
+    \item \textbf{Grounding} (a node): Removing a node.
+    \item Meaning of the row space:
+    \begin{itemize}
+        \item $v$ is in the row space if and only if it is perpendicular to $\begin{bmatrix}1\\1\\1\\1\end{bmatrix}$ in the nullspace.
+        \item The values of any vector in the row space sum to zero.
+    \end{itemize}
+    \item Meaning of the column space:
+    \begin{itemize}
+        \item \dq{The components of $Ax$ add to zero around every loop}{bib:Strang}{424}
+        \item When $b$ is in the column space of $A$, it must obey Kirchoff's Law, which follows.
+        \begin{equation*}
+            b_1+b_3-b_2=0
+        \end{equation*}
+    \end{itemize}
+    \item Meaning of the left nullspace:
+    \begin{equation*}
+        A^\T y=
+        \begin{bmatrix}
+            -1 & -1 & 0  & -1 & 0  & 0 \\
+            1  & 0  & -1 & 0  & -1 & 0 \\
+            0  & 1  & 1  & 0  & 0  & -1\\
+            0  & 0  & 0  & 1  & 1  & 1
+        \end{bmatrix}
+        \begin{bmatrix}
+            y_1\\
+            y_2\\
+            y_3\\
+            y_4\\
+            y_5\\
+            y_6
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            0\\
+            0\\
+            0\\
+            0
+        \end{bmatrix}
+    \end{equation*}
+    \begin{itemize}
+        \item Components of $y$ ($y_n$) are currents.
+        \item \dq{When currents or forces are in equilibrium, the equation to solve is $A^\T y=0$}{bib:Strang}{425}
+        \item The first row in $A^\T$ gives all edges (currents) that interact with node 1, namely, edges 1, 2, and 4 flowing out.
+        \item That these edges times a vector in the left null space equals zero means that the net flow into node 1 is zero.
+        \begin{itemize}
+            \item The same holds true for all other nodes (as shown by the other rows in $A^\T$).
+            \item This gives \textbf{Kirchoff's Current Law}.
+        \end{itemize}
+        \item \textbf{Kirchoff's Current Law}: \dq{Flow in equals flow out at each node}{bib:Strang}{425}
+        \item Let's interpret this: a loop current is a loop of edges, such as edges 1, 2, and 3 in Figure \ref{fig:compgraphincia}.
+        \begin{itemize}
+            \item To get around this loop, flow forward on edge 1 (from node 1 to 2), forward on edge 2 (from node 2 to 3), and backward on edge 3 (from node 3 to 1).
+            \item This progression can be expressed by the vector, $\begin{bmatrix}1\\-1\\1\\0\\0\\0\end{bmatrix}$.
+            \item Indeed, this vector is a viable $y$ vector.
+            \item In fact, \dq{every loop current is a solution to the current law}{bib:Strang}{425}
+        \end{itemize}
+        \item Since $\dim m-r=6-3=3$, we expect 3 independent left null space vectors.
+        \begin{itemize}
+            \item These can be found via tracing independent loops in Figure \ref{fig:compgraphincia}.
+            \item To ensure independence of loops, choose any three values $y_n$ and have each loop include only one of these edges.
+            \item For instance, choose edges $y_1$, $y_2$, and $y_3$, or edges 1, 2, and 3.
+            \item The first loop will therefore include edge 1 and some set of edges 4, 5, and 6. For simplicity's sake, choose edges 4 and 5.
+            \item Do something similar to find the other two loops to include edges 2, 4, and 6, and edges 3, 5, and 6.
+            \item Tracing the flow along these edges gives the following basis.
+            \item $N(A^\T)=\left\{
+            \begin{bmatrix}
+                1\\
+                0\\
+                0\\
+                -1\\
+                1\\
+                0
+            \end{bmatrix},
+            \begin{bmatrix}
+                0\\
+                0\\
+                1\\
+                0\\
+                -1\\
+                1
+            \end{bmatrix},
+            \begin{bmatrix}
+                0\\
+                -1\\
+                0\\
+                1\\
+                0\\
+                -1
+            \end{bmatrix}
+            \right\}$
+            \item Note that the sum of these vectors gives the one for the big loop listed previously.
+        \end{itemize}
+    \end{itemize}
+    \item Given an $m\times n$ incidence matrix, $r=n-1$, using edges from any tree.
+    \item There are $m-r=m-n+1$ independent loops in a graph.
+    \item Every graph testifies to \textbf{Euler's formula}$^[$\footnote{The same idea as the Euler characteristic from Section 4.1 in \cite{bib:knotnotes}.}$^]$.
+    \item \textbf{Euler's formula}: $(\text{number of nodes})-(\text{number of edges})+(\text{number of small loops})=1$
+    \begin{itemize}
+        \item Simply proven: $n-m+(m-n+1)=1$.
+    \end{itemize}
+    \item In real life, the current $y$ is the product of the difference in potentials $Ax$ and the \textbf{conductance} $c$.
+    \item \textbf{Conductance}: A measure of how easily flow passes through an edges.
+    \item A "connectivity matrix" $A$ (an incidence matrix) describes the connections in a graph.
+    \item A \textbf{network} assigns a conductance to each edge. These numbers ($c_1,\dots,c_m$) go into the "conductance matrix" $C$.
+    \item $\text{conductance}=\frac{1}{\text{resistance}}$.
+    \item \textbf{Ohm's Law}: $\text{Current along edge}=\text{conductance}\times\text{potential difference}$.
+    \item Therefore, \dq{Ohm's Law for all $m$ currents is $y=-CAx$}{bib:Strang}{426}
+    \item Combining Ohm's Law and Kirchoff's Current Law yields $A^\T CAx=0$$^[$\footnote{In circuit theory, we do change from $Ax$ to $-Ax$.}$^]$.
+    \item When there is a current source, Kirchoff's Current Law changes from $A^\T y=0$ to $A^\T y=f$. Flow is still balanced, but it is shifted.
+    \item \textbf{Graph Laplacian matrix}: The matrix $A^\T A$$^[$\footnote{There is an example with these concepts, but it is beyond me for the time being.}$^]$.
 \end{itemize}
 \newpage
 
