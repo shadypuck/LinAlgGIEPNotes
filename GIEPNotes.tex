@@ -13,6 +13,7 @@
 \MakeOuterQuote{"}
 
 \numberwithin{figure}{section}
+\numberwithin{equation}{section}
 
 \usetikzlibrary{calc,positioning,through,matrix,decorations.markings,shapes.geometric}
 
@@ -215,7 +216,7 @@ From \cite{bib:Axler}.
             \coordinate (b) at (0.3,1.2);
 
             \draw (a) -- node{$x$} (b);
-            \draw ($(a)+(1.5,0)$) -- node{$\tfrac{1}{2}x$} ($(b)+(1.5,0)$);
+            \draw ($(a)+(1.5,0)$) -- node{$\tfrac{1}{2}x$} ($(b)+(1.35,-0.6)$);
             \draw (3.45,1.8) -- node{$-\tfrac{3}{2}x$} ($(a)+(3,0)$);
         \end{tikzpicture}
         \caption{Scalar multiplication.}
@@ -490,7 +491,7 @@ From \cite{bib:graph}.
             \draw               (B.center) to[bend right=45]                             (W.center);
             \draw               (R.center) to[bend left=45]                              (G.center);
             \draw               (W.center) to[bend right=45]                             (G.center);
-            \draw [ultra thick] (R.center) -- node[above]{3} (W.center) to[bend right=40,distance=13mm] node[left] {4} (B.center) -- node[left] {1} (W.center) -- node[above]{2} (G.center);
+            \draw [ultra thick,line join=bevel] (R.center) -- node[above]{3} (W.center) to[bend right=40,distance=13mm] node[left] {4} (B.center) -- node[left] {1} (W.center) -- node[above]{2} (G.center);
             \node (Rcirc) [draw,circle through={(R.center)}] at ($(R.45)+(0.2,0.2)$)   {};
             \node (Gcirc) [draw,circle through={(G.center)}] at ($(G.-45)+(0.2,-0.2)$) {};
         \end{tikzpicture}
@@ -796,7 +797,8 @@ From \cite{bib:graph}.
             \centering
             \begin{tikzpicture}[
                 node distance=1cm,
-                every node/.append style={circle,draw,inner sep=2pt}
+                every node/.append style={circle,draw,inner sep=2pt},
+                miter limit=3
             ]
                 \node (A)                                     {};
                 \node (B) [right=of A]                        {};
@@ -1503,6 +1505,188 @@ From \cite{bib:determinants}.
         \item A field always has a unique unity element denoted 1 such that $a\times 1=a$.
         \item \dq{In a field if $ab=0$ and $a\neq 0$, then $b=0$}{bib:determinants}{4}
     \end{itemize}
+\end{itemize}
+
+
+\subsection{The Matrix}
+\begin{itemize}
+    \item \textbf{Matrix} (over the ring $\mathfrak{R}$): The rectangular array of $m$ rows and $n$ columns containing the elements $a_{11},a_{12},\dots,a_{mn}$ of ring $\mathfrak{R}$.
+    \begin{equation*}
+        A=
+        \begin{bmatrix}
+            a_{11} & a_{12} & \cdots & a_{1n}\\
+            a_{21} & a_{22} & \cdots & a_{2n}\\
+            \vdots & \vdots & \ddots & \vdots\\
+            a_{m1} & a_{m2} & \cdots & a_{mn}
+        \end{bmatrix}
+    \end{equation*}
+    \begin{itemize}
+        \item Denoted by uppercase Latin letters ($A,B,C,\dots$).
+        \item Also denoted in these two ways (examples correspond to the matrix $A$): $(a_{ij})$, $||a_{ij}||$.
+    \end{itemize}
+    \item \textbf{Dimensions} (of $A$): The values $m$ and $n$ corresponding to the number of rows and columns, respectively.
+    \item \textbf{Diagonal} (elements): The elements $a_{11},a_{22},\dots$. \emph{Also known as} \textbf{the elements in the principal diagonal}.
+    \item \textbf{\emph{n}-square matrix}: A matrix with $n$ rows and $n$ columns. \emph{Also known as} \textbf{square matrix of order \emph{n}}.
+\end{itemize}
+
+
+\subsection{Certain Operations with Matrices}
+\begin{itemize}
+    \item \textbf{Equal} (matrices over $\mathfrak{R}$): Two matrices $A$ and $B$ with elements in a ring $\mathfrak{R}$ that
+    \begin{enumerate}
+        \item have the same dimensions and
+        \item satisfy $a_{ij}=b_{ij}\ \forall\ i=1,\dots,m;j=1,\dots,n$.
+    \end{enumerate}
+    \item \textbf{Zero} (matrix): A matrix where each element of is zero.
+    \begin{itemize}
+        \item Denoted by $A=0$.
+    \end{itemize}
+    \item \textbf{Sum} (of two $m\times n$ matrices $A$ and $B$): The $m\times n$ matrix $C$, every element of which satisfies $c_{ij}=a_{ij}+b_{ij}$.
+    \item \textbf{Difference} (of two $m\times n$ matrices $A$ and $B$): The $m\times n$ matrix $C$, every element of which satisfies $c_{ij}=a_{ij}-b_{ij}$.
+    \item \textbf{Scalar}: A single element of a ring $\mathfrak{R}$.
+    \begin{itemize}
+        \item Denoted by lowercase Latin or Greek letters ($a,b,c,\dots$ or $\alpha,\beta,\gamma,\dots$).
+    \end{itemize}
+    \item Establishes matrix properties based on those governing a commutative ring.
+\end{itemize}
+
+
+\subsection{Multiplication of Matrices}
+\begin{itemize}
+    \item \textbf{Product} (of an $m\times n$ matrix $A$ and an $n\times q$ matrix $B$ over $\mathfrak{R}$): The $m\times q$ matrix $C=AB$, every element of which satisfies $c_{ij}=\sum_{t=1}^n a_{it}b_{tj}$.
+    \begin{itemize}
+        \item If $\mathfrak{R}$ is commutative, then $c_{ij}=\sum_{t=1}^n a_{it}b_{tj}=\sum_{t=1}^n b_{tj}a_{it}$.
+        \item If $\mathfrak{R}$ is not commutative, then $c_{ij}$ equals only $\sum_{t=1}^n a_{it}b_{tj}$.
+    \end{itemize}
+    \item If $AB$ exists, then $A$ and $B$ \dq{must have their \textbf{contiguous} dimensions equal}{bib:determinants}{6}. Another way of saying this is that $A$ and $B$ must be \textbf{conformable} for multiplication.
+    \item \textbf{Contiguous} (dimensions): For two matrices $A$ and $B$, the dimensions that must be the same when multiplied if $AB$ exists.
+    \item \textbf{Conformable} (matrices): Two matrices $A$ and $B$ for which the product $AB$ exists.
+    \item \dq{If $A$ is an $m\times n$ matrix, $B$ and $C$ $n\times q$ matrices, then $A(B+C)=AB+AC$}{bib:determinants}{7}
+    \begin{itemize}
+        \item Because $B$ and $C$ are both $n\times q$ matrices, $B+C$ is $n\times q$.
+        \item Thus, the matrices $A(B+C)$ and $AB+AC$ are both $m\times q$.
+        \item Because $a_{ij},b_{ij},c_{ij}\in\mathfrak{R}$ and because of the distributive laws governing rings, $\sum_{t=1}^n a_{it}(b_{tj}+c_{tj}) = \sum_{t=1}^na_{it}b_{tj}+\sum_{t=1}^na_{it}c_{tj}$.
+        \item Therefore, because the dimensions and elements of $A(B+C)$ and $AB+AC$ are equal, $A(B+C)=AB+AC$.
+    \end{itemize}
+    \item \dq{If $A$, $B$, and $C$ are three matrices of dimensions $m\times n$, $n\times p$, and $p\times q$, respectively, then $A(BC)=(AB)C$}{bib:determinants}{7}
+    \item \dq{The set of all $n$-square matrices with elements in a commutative ring $\mathfrak{R}$ constitute a (non-commutative) ring}{bib:determinants}{8}
+    \item Let $I_n$ denote the $n$-square matrix where all diagonal elements are 1 and all elements not in the principal diagonal are 0.
+    \item Let $A^m$ denote $A$ multiplied by itself $m$ times where $A$ must be a square matrix.
+\end{itemize}
+
+
+\subsection{Products by Partitioning}
+\begin{itemize}
+    \item Goal: Prove that block multiplication (referred to herein as "multiplying by partitioning") is a valid strategy for multiplying matrices.
+    \item Let $A$ be an $m\times n$ matrix and $B$ be an $n\times q$ matrix where $a_{ij},b_{ij}\in\mathfrak{R}$.
+    \item Let $m_1,m_2,n_1,n_2,n_3,q_1,q_2\in\mathbb{Z}^+$ follow
+    \begin{align*}
+        m_1+m_2 &= m & n_1+n_2+n_3 &= n & q_1+q_2 &= q
+    \end{align*}
+    \item Let $A$ and $B$ be partitioned as in Figure \ref{fig:partition}, where the values outside the matrix correspond to how many rows and columns are represented by each partitioned section.
+    \begin{figure}[h!]
+        \centering
+        \begin{subfigure}[b]{0.3\linewidth}
+            \centering
+            \begin{tikzpicture}[
+                every left delimiter/.style={xshift=1ex},
+                every right delimiter/.style={xshift=-1ex},
+                node distance=1mm
+            ]
+                \matrix (m) [nodes={minimum width=6mm},matrix of math nodes,left delimiter={[},right delimiter={]}] {
+                    a_{11} & \cdots & a_{1n}\\
+                    a_{m1} & \cdots & a_{mn}\\
+                };
+                \draw ([xshift=-3mm]$(m-1-1)!0.5!(m-2-1)$) -- ([xshift=3mm]$(m-1-3)!0.5!(m-2-3)$);
+                \draw ([yshift=2mm]$(m-1-1)!0.5!(m-1-2)$) -- ([yshift=-2mm]$(m-2-1)!0.5!(m-2-2)$);
+                \draw ([yshift=2mm]$(m-1-2)!0.5!(m-1-3)$) -- ([yshift=-2mm]$(m-2-2)!0.5!(m-2-3)$);
+                \node [left=of m] {$A=$};
+                \foreach \x in {1,2,3} {
+                    \node [above=of m-1-\x] {$n_\x$};
+                }
+                \node [right=7pt of m-1-3] {$m_1$};
+                \node [right=5pt of m-2-3] {$m_2$};
+            \end{tikzpicture}
+            \caption{Matrix $A$.}
+            \label{fig:partitiona}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.3\linewidth}
+            \centering
+            \begin{tikzpicture}[
+                every left delimiter/.style={xshift=1ex},
+                every right delimiter/.style={xshift=-1ex},
+                node distance=1mm,
+                every node/.style={text height=.8em}
+            ]
+                \matrix (m) [nodes={minimum width=6mm},matrix of math nodes,left delimiter={[},right delimiter={]}] {
+                    b_{11} & b_{1q}\\
+                    \vdots & \vdots\\
+                    b_{n1} & b_{nq}\\
+                };
+                \draw ([xshift=-3mm]$(m-1-1)!0.5!(m-2-1)$) -- ([xshift=3mm]$(m-1-2)!0.5!(m-2-2)$);
+                \draw ([xshift=-3mm]$(m-2-1)!0.5!(m-3-1)$) -- ([xshift=3mm]$(m-2-2)!0.5!(m-3-2)$);
+                \draw ([yshift=2mm]$(m-1-1)!0.5!(m-1-2)$) -- ([yshift=-2mm]$(m-3-1)!0.5!(m-3-2)$);
+                \node [left=of m] {$B=$};
+                \foreach \x in {1,2} {
+                    \node [above=of m-1-\x] {$q_\x$};
+                }
+                \node [right=5pt of m-1-2] {$n_1$};
+                \node [right=6pt of m-2-2] {$n_2$};
+                \node [right=5pt of m-3-2] {$n_3$};
+            \end{tikzpicture}
+            \caption{Matrix $B$.}
+            \label{fig:partitionb}
+        \end{subfigure}
+        \caption{Partitioning matrices.}
+        \label{fig:partition}
+    \end{figure}
+    \item Each matrix can now be thought of as a matrix of matrices, as follows.
+    \renewcommand{\arraystretch}{1.4}
+    \begin{align*}
+        A &=
+        \begin{bmatrix}
+            A_{11} & A_{12} & A_{13}\\
+            A_{21} & A_{22} & A_{23}\\
+        \end{bmatrix}&
+        B &=
+        \begin{bmatrix}
+            B_{11} & B_{12}\\
+            B_{21} & B_{22}\\
+            B_{31} & B_{32}\\
+        \end{bmatrix}
+    \end{align*}
+    \begin{itemize}
+        \item Note that the dimensions of $A_{ij}$ are $m_i\times n_j$ while the dimensions of $B_{ij}$ are $n_i\times q_j$.
+        \item Note that the submatrices are composed of the corresponding partitioned values from the matrices in Figure \ref{fig:partition}.
+    \end{itemize}
+    \item Thus, the product $C=AB$ can be thought of as the following matrix.
+    \begin{equation}\label{eqn:partitionmat}
+        C = AB =
+        \begin{bmatrix}
+            C_{11} & C_{12}\\
+            C_{21} & C_{22}\\
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            A_{11}B_{11}+A_{12}B_{21}+A_{13}B_{31} & A_{11}B_{12}+A_{12}B_{22}+A_{13}B_{32}\\
+            A_{21}B_{11}+A_{22}B_{21}+A_{23}B_{31} & A_{21}B_{12}+A_{22}B_{22}+A_{23}B_{32}\\
+        \end{bmatrix}
+    \end{equation}
+    \begin{itemize}
+        \item Note that $C_{ij}$ is an $m_i\times q_j$ matrix.
+    \end{itemize}
+    \item Define the element of $\mathfrak{R}$ at $C_{kl}$ as follows.
+    \begin{equation}\label{eqn:partitionsum}
+        C_{kl} = \sum_{t=1}^n a_{kt}b_{tl}
+        = \sum_{t=1}^{n_1} a_{kt}b_{tl} + \sum_{t=n_1+1}^{n_2} a_{kt}b_{tl} + \sum_{t=n_1+n_2+1}^{n_3} a_{kt}b_{tl}
+    \end{equation}
+    \item If $1\leq k\leq m_1$ and $1\leq l\leq q_1$, then the three summations on the right of Equation \ref{eqn:partitionsum} are equal to the elements in the $k$-th row and $l$-th column of $A_{11}B_{11}$, $A_{12}B_{21}$, and $A_{13}B_{31}$, respectively.
+    \item By Equation \ref{eqn:partitionmat}, the sum of these three elements gives the element in the $k$-th row and $l$-th column of $C_{11}$, which is also the element in the $k$-th row and $l$-th column of $C$.
+    \begin{itemize}
+        \item This is confirmed by Equation \ref{eqn:partitionsum}.
+    \end{itemize}
+    \item This process can be continued to confirm the validity of every other submatrix comprising $C$. Therefore, block multiplication is valid.
+    \item If two matrices of identical dimensions are partitioned the same way, then block addition and subtraction are valid, too.
 \end{itemize}
 \newpage
 
