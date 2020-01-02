@@ -12,8 +12,12 @@
 
 \MakeOuterQuote{"}
 
+\newcounter{theorem}
+\newcommand{\newtrm}[1]{\refstepcounter{theorem}\label{#1}Theorem \thetheorem: }
+
 \numberwithin{figure}{section}
 \numberwithin{equation}{section}
+\numberwithin{theorem}{section}
 
 \usetikzlibrary{calc,positioning,through,matrix,decorations.markings,shapes.geometric}
 
@@ -1672,6 +1676,7 @@ From \cite{bib:determinants}.
             A_{21}B_{11}+A_{22}B_{21}+A_{23}B_{31} & A_{21}B_{12}+A_{22}B_{22}+A_{23}B_{32}\\
         \end{bmatrix}
     \end{equation}
+    \renewcommand{\arraystretch}{1}
     \begin{itemize}
         \item Note that $C_{ij}$ is an $m_i\times q_j$ matrix.
     \end{itemize}
@@ -1687,6 +1692,228 @@ From \cite{bib:determinants}.
     \end{itemize}
     \item This process can be continued to confirm the validity of every other submatrix comprising $C$. Therefore, block multiplication is valid.
     \item If two matrices of identical dimensions are partitioned the same way, then block addition and subtraction are valid, too.
+\end{itemize}
+\newpage
+
+
+
+\section{Elementary Properties of Determinants}
+\subsection{The Determinant of a Square Matrix}
+From \cite{bib:determinants}.
+\begin{itemize}
+    \item Consider an $n$-square matrix $A$, as below, where all entries are elements of a field $\mathfrak{F}$.
+    \begin{equation*}
+        A=
+        \begin{bmatrix}
+            a_{11} & a_{12} & \cdots & a_{1n}\\
+            a_{21} & a_{22} & \cdots & a_{2n}\\
+            \vdots & \vdots & \ddots & \vdots\\
+            a_{n1} & a_{n2} & \cdots & a_{nn}
+        \end{bmatrix}
+    \end{equation*}
+    \item Certain \textbf{scalar functions}, like the \textbf{determinant}, are associated with $A$.
+    \item \textbf{Scalar function}: An element of $\mathfrak{F}$ which is of great importance to a matrix.
+    \item \textbf{Determinant}: The quantity $|A|\in\mathfrak{F}$ given by Equation \ref{eqn:determinant}, which is the sum of all $n!$ products \dq[ of $A$ and where $\sigma$ is the number of \textbf{negative pairs} among the factors of each product]{that can be obtained by picking one and only one element from each row and from each column}{bib:determinants}{14}
+    \begin{equation}\label{eqn:determinant}
+        |A| = \sum^{n!}(-1)^\sigma a_{1i_1}\dots a_{ni_n}
+    \end{equation}
+    \begin{itemize}
+        \item Note that $i_1,\dots,i_n$ denotes all $n!$ permutations of the set $\mathbb{Z}\cap[1,n]$.
+    \end{itemize}
+    \item \textbf{Negative pair}: Two elements $a_{ij}$ and $a_{kl}$ of $A$ such that $i\neq k$ and $j\neq l$ where one of these elements lies to the right of and above the other in $A$.
+    \item \textbf{Positive pair}: Two elements $a_{ij}$ and $a_{kl}$ of $A$ such that $i\neq k$ and $j\neq l$ that are not a negative pair.
+    \item \textbf{Expansion} (of $|A|$): The unsimplified right side of Equation \ref{eqn:determinant}.
+    \item \textbf{Normal} (order): An arbitrary permutation of a set defined to be "standard" for the purpose of finding deviations from this standard.
+    \item \textbf{Inversion}: An instance in a permutation of a set where a value \dq{is followed by one which in the normal order proceeds it}{bib:determinants}{15}
+    \item The number of inversions in a permutation of $i_1,\dots,i_n$ equals $\sigma$ for the corresponding term in the expansion of $|A|$.
+    \begin{itemize}
+        \item For two terms $a_{ij}$ and $a_{kl}$, impose the condition that $i<k$.
+        \item Thus, whether $j<l$ or $j>l$ determines both whether or not an inversion exists in $i_1,\dots,i_n$ and whether or not $a_{ij}$ and $a_{kl}$ are a positive or a negative pair.
+    \end{itemize}
+\end{itemize}
+
+
+\subsection{Elementary Theorems Concerning Determinants}
+\begin{itemize}
+    \item \textbf{Transpose} (of a matrix): The $n\times m$ matrix $A'$ where the rows of the $m\times n$ matrix $A$ become are the columns of $A'$ without their relative order being altered$^[$\footnote{Transposed matrices are commonly denoted $A^\T$, as in even other parts of this document. Thus, the $A^\T$ notation will continue to be used despite the difference from \cite{bib:determinants}. This definition is the sole exception.}$^]$.
+    \begin{itemize}
+        \item Denote the element in the $i$-th row and $j$-th column of $A^\T$ as $a^\T_{ij}$.
+        \item Thus, $a^\T_{ij}=a_{ji}$.
+    \end{itemize}
+    \item \textbf{Conjugate} (of a matrix): The matrix $\bar{A}$ obtained by replacing each element $a_{ij}$ of $A$ by it's complex conjugate $\bar{a}_{ij}$.
+    \item \textbf{Conjugate transpose} (of a matrix): The matrix $A^*$ that can be thought of either as the transpose of $\bar{A}$ or as the conjugate of $A^\T$.
+    \item \newtrm{trm:Tequal}\dq{If $A$ is a square matrix, $|A|=\left|A^\T\right|$}{bib:determinants}{16}
+    \begin{itemize}
+        \item Each product in Equation \ref{eqn:determinant} has only one element from every row and column of $A$.
+        \item Thus, each product in Equation \ref{eqn:determinant} has only one element from every row and column of $A^\T$.
+        \item A positive or negative pair of elements in $A$ remains a positive or negative pair under transposition.
+        \item Therefore, the terms of Equation \ref{eqn:determinant} are the same for $A$ and $A^\T$.
+    \end{itemize}
+    \item Note that this theorem implies that for every theorem of determinants concerning the columns of a matrix, there is a corresponding theorem concerning the rows.
+    \item \newtrm{trm:BARequal}\dq{If $\Delta=|A|$, then $\bar{\Delta}=|\bar{A}|$}{bib:determinants}{16}
+    \begin{itemize}
+        \item Follows from the algebraic facts that
+        \begin{enumerate}
+            \item the conjugate of the sum of two complex numbers equals the sum of the conjugates of said numbers and
+            \item the conjugate of the product of two complex numbers equals the product of the conjugates of said numbers.
+        \end{enumerate}
+        \item Since Equation \ref{eqn:determinant} is a sum of products, the theorem is implied.
+    \end{itemize}
+    \item \newtrm{trm:row0s}\dq{If all the elements of a row (or of a column) of a square matrix $A$ are zero, then $|A|=0$}{bib:determinants}{16}
+    \begin{itemize}
+        \item Each product in Equation \ref{eqn:determinant} contains as a factor an element of the row or column of zeros.
+        \item Thus, each product equals zero.
+        \item Because $\sum 0=0$, $|A|=0$.
+    \end{itemize}
+    \item \newtrm{trm:kscaled}\dq{If all the elements of a row (or of a column) of a square matrix $A$ be multiplied by an element $k$ of the field, the determinant of the matrix is multiplied by $k$}{bib:determinants}{16} See Equation \ref{eqn:columnk}.
+    \begin{equation}\label{eqn:columnk}
+        \renewcommand{\arraystretch}{1.4}
+        \begin{vmatrix}
+            a_1 & b_1 & kc_1\\
+            a_2 & b_2 & kc_2\\
+            a_3 & b_3 & kc_3\\
+        \end{vmatrix}
+        = k
+        \begin{vmatrix}
+            a_1 & b_1 & c_1\\
+            a_2 & b_2 & c_2\\
+            a_3 & b_3 & c_3\\
+        \end{vmatrix}
+    \end{equation}
+    \begin{itemize}
+        \item Each product in Equation \ref{eqn:determinant} contains as a factor an element of the scaled row or column.
+        \item Thus, each product is scaled by $k$.
+        \item Because $\sum kx=k\sum x$, Equation \ref{eqn:columnk} holds in all instances.
+    \end{itemize}
+    \item \newtrm{trm:ijswitch}\dq{If two rows (or two columns) of a matrix are interchanged, the determinant of the matrix changes sign}{bib:determinants}{17}
+    \begin{itemize}
+        \item Let $A_1$ be the matrix identical to $A$ save the row swap.
+        \item The language herein will discuss only rows, but the word, "column," could be substituted in every instance.
+        \item Case 1: Two adjacent rows are interchanged.
+        \begin{itemize}
+            \item Clearly, the products are the same in the expansion of both $|A|$ and $|A_1|$.
+            \item If a pair of elements contains either zero or only one element in the swapped rows, its identity as a positive or negative pair does not change.
+            \item If both elements in a pair are elements of the swapped rows, its identity as a positive or negative pair flips.
+            \item Thus, the row swap causes every $\sigma$ to change by $\pm 1$.
+        \end{itemize}
+        \item Case 2: The $i$-th and $j$-th rows are interchanged where $|i-j|>1$.
+        \begin{itemize}
+            \item There are $k=|i-j|-1$ rows between the $i$-th and $j$-th rows.
+            \item Use $k+1$ adjacent row swaps to move the $j$-th row to the $i$-th position.
+            \item Then, use $k$ adjacent row swaps to move the former $i$-th row to the $j$-th position.
+            \item Since $2k+1$ row swaps were used, the sign of $|A|$ flipped $2k+1$ times (an odd number of times) during the process.
+        \end{itemize}
+    \end{itemize}
+    \item \newtrm{trm:ident0}\dq{If two rows (or columns) of a matrix $A$ are identical, then $|A|=0$$^[$\footnote{Exception: If the elements of $A$ lie in a field of \textbf{characteristic} 2.}$^]$}{bib:determinants}{17}
+    \begin{itemize}
+        \item Let $A_1$ be the matrix obtained by swapping the two identical rows.
+        \item Since the swapped rows are identical, $A=A_1$.
+        \item Thus, $|A|=|A_1|$.
+        \item By the previous theorem, $|A_1|=-|A|$, so the following holds.
+        \begin{align*}
+            |A| &= -|A|\\
+            2|A| &= 0\\
+            |A| &= 0
+        \end{align*}
+    \end{itemize}
+    \item \newtrm{trm:prop0}\dq{If two rows (or columns) of a matrix $A$ are proportional [dependent], then $|A|=0$}{bib:determinants}{17}
+    \begin{itemize}
+        \item Let the two proportional rows $R_i$ and $R_j$ be related by $R_j = kR_i$.
+        \item Let $A_1$ be the matrix where row $R_j$ is replaced by $R_i$.
+        \item By Theorem \ref{trm:kscaled}, $|A|=k|A_1|$.
+        \item By Theorem \ref{trm:ident0}, $|A_1|=0$.
+        \item Therefore, $|A|=k\times 0=0$.
+    \end{itemize}
+    \item \textbf{Minor} (of an element $a_{ij}$): The determinant of the $(n-1)$-square matrix resulting from deleting $i$-th row and the $j$-th column of $n$-square matrix $A$.
+    \begin{itemize}
+        \item Denoted by $|M_{ij}|$.
+    \end{itemize}
+    \item \textbf{Cofactor} (of an element $a_{ij}$): The signed minor $(-1)^{i+j}|M_{ij}|$.
+    \begin{itemize}
+        \item Denoted by $\alpha_{ij}$.
+    \end{itemize}
+    \item \newtrm{trm:cofactor}\dq{The value of the determinant $|A|$ is equal to the sum of the products of the elements of any row (or column) of [$n$-square matrix] $A$, each by its own cofactor}{bib:determinants}{18} See Equation \ref{eqn:cofactor}, where $i,j=1,2,\dots,n$.
+    \begin{equation}\label{eqn:cofactor}
+        |A| = \sum_{t=1}^na_{it}\alpha_{it} = \sum_{t=1}^na_{tj}\alpha_{tj}
+    \end{equation}
+    \begin{itemize}
+        \item Prove Theorem \ref{trm:cofactor} for row 1:
+        \begin{itemize}
+            \item The left summation in Equation \ref{eqn:cofactor} can be written as follows. Thus, prove that $k_t=\alpha_{1t}$.
+            \begin{equation*}
+                |A|=a_{11}k_1+a_{12}k_2+\dots+a_{1n}k_n
+            \end{equation*}
+            \item The terms in $|A|$ that involve $a_{11}$ are as follows. Note that $a_{11}$ can be moved outside the sum because $a_{11}$ forms a positive pair with every other element and, thus, does not affect $\sigma$.
+            \begin{align*}
+                \sum (-1)^\sigma a_{11}a_{2i_2}\dots a_{ni_n} &= a_{11}\sum (-1)^\sigma a_{2i_2}a_{3i_3}\dots a_{ni_n}\\
+                &= a_{11}|M_{11}|\\
+                &= (-1)^{1+1}a_{11}|M_{11}|\\
+                &= a_{11}\alpha_{11}
+            \end{align*}
+            \item For every other element $a_{1t}$, move column $t$ over by $t-1$ columns to place $a_{1t}$ in the $(1,1)$ position.
+            \item By the proof of Theorem \ref{trm:ijswitch}, the determinant of the new matrix is $(-1)^{t-1}|A|$.
+            \item Note that $M_{1t}$ has not been altered by this process.
+            \item Since $a_{1t}|M_{1t}|$ gives all terms involving $a_{1t}$ in the expansion of $(-1)^{t-1}|A|$, multiplying through by $(-1)^{t+1}$ reveals that $a_{1t}\alpha{1t}$ gives all terms involving $a_{1t}$ in the original determinant $|A|$.
+        \end{itemize}
+        \item Use the same method$^[$\footnote{Return to this method at a later date. This does not make sense.}$^]$ of moving rows and then multiplying through to prove the general case.
+    \end{itemize}
+    \item \newtrm{trm:ithsum}\dq{If the $i$-th row of an $n$-square matrix $A$ consists of binomial elements:$$a_{i1}+a'_{i1},a_{i2}+a'_{i2},\dots,a_{in}+a'_{in},$$the determinant $|A|$ is equal to the sum of two determinants, one of which has as its $i$-th row, $a_{i1},a_{i2},\dots,a_{in}$, the other having as its $i$-th row $a'_{i1},a'_{i2},\dots,a'_{in}$, the remaining rows in both determinants being the same as the corresponding rows in the original matrix}{bib:determinants}{19} See Equation \ref{eqn:ithsum}.
+    \begin{equation}\label{eqn:ithsum}
+        \begin{vmatrix}
+            a_{11} & a_{12} & \cdots & a_{1n}\\
+            \vdots & \vdots & \cdots & \vdots\\
+            a_{i1}+a'_{i1} & a_{i2}+a'_{i2} & \cdots & a_{in}+a'_{in}\\
+            \vdots & \vdots & \cdots & \vdots\\
+            a_{n1} & a_{n2} & \cdots & a_{nn}\\
+        \end{vmatrix}
+        =
+        \begin{vmatrix}
+            a_{11} & a_{12} & \cdots & a_{1n}\\
+            \vdots & \vdots & \cdots & \vdots\\
+            a_{i1} & a_{i2} & \cdots & a_{in}\\
+            \vdots & \vdots & \cdots & \vdots\\
+            a_{n1} & a_{n2} & \cdots & a_{nn}\\
+        \end{vmatrix}
+        +
+        \begin{vmatrix}
+            a_{11} & a_{12} & \cdots & a_{1n}\\
+            \vdots & \vdots & \cdots & \vdots\\
+            a'_{i1} & a'_{i2} & \cdots & a'_{in}\\
+            \vdots & \vdots & \cdots & \vdots\\
+            a_{n1} & a_{n2} & \cdots & a_{nn}\\
+        \end{vmatrix}
+    \end{equation}
+    \begin{itemize}
+        \item By Theorem \ref{trm:cofactor}, expand $|A|$ according to the $i$-th row and note that the related cofactors of every matrix in Equation \ref{eqn:ithsum} are identical.
+        \begin{equation*}
+            \sum_{t=1}^n \left( a_{it}+a'_{it} \right)\alpha_{it} = \sum_{t=1}^n a_{it}\alpha_{it}+\sum_{t=1}^n a'_{it}\alpha_{it}
+        \end{equation*}
+    \end{itemize}
+    \item \newtrm{trm:rowreduction}\dq{If to the elements of any row (or column) of a matrix $A$ we add the products of the corresponding elements of any other row (or column) by the same element $k$ of the field, the determinant of the matrix is unchanged}{bib:determinants}{20}
+    \begin{itemize}
+        \item Let $A_1$ be identical to matrix $A$ except that every element (scaled by $k$) of $R_i$ is added to the corresponding element of $R_j$.
+        \item Let $A_2$ be identical to matrix $A$ except that every element of $R_j$ has been replaced by the corresponding element (scaled by $k$) of $R_i$.
+        \item By Theorem \ref{trm:ithsum}, $|A_1|=|A|+|A_2|$.
+        \item By Theorem \ref{trm:prop0}, $|A_2|=0$.
+        \item Therefore, $|A_1|=|A|+0=|A|$.
+    \end{itemize}
+    \item \newtrm{trm:ijcofactors0}\dq{The sum of the products of the elements of any row (or column) by the corresponding cofactors of the elements of another row (or column) is zero}{bib:determinants}{20} See Equation \ref{eqn:ijcofactors0}, where $i\neq j$.
+    \begin{equation}\label{eqn:ijcofactors0}
+        \sum_{t=1}^na_{it}\alpha_{jt}=0
+    \end{equation}
+    \begin{itemize}
+        \item Let $A_1$ be the matrix obtained by replacing the elements of the $j$-th row with the corresponding elements of the $i$-th row.
+        \item By Theorem \ref{trm:ident0}, $|A_1|=0$.
+        \item The cofactors of the $j$-th row of $A_1$ are identical to those of the $j$-th row of $A$.
+        \item The $i$-th row of $A_1$ is identical to that of $A$.
+        \item Therefore, the summation in Equation \ref{eqn:ijcofactors0}, which is applicable to both $A_1$ and $A$, equals $|A_1|=0$.
+    \end{itemize}
+    \item Leopold Kronecker introduced the idea of the \textbf{Kronecker delta}.
+    \item \textbf{Kronecker delta}: The symbol $\delta_{ij}$ which stands for 1 if $i=j$ and 0 otherwise.
+    \item Using the Kronecker delta, the gist of Theorems \ref{trm:cofactor} and \ref{trm:ijcofactors0} can be combined in the following equation, where $i,j=1,2,\dots,n$.
+    \begin{equation*}
+        \delta_{ij}|A| = \sum_{t=1}^na_{it}\alpha_{jt} = \sum_{t=1}^na_{ti}\alpha_{tj}
+    \end{equation*}
 \end{itemize}
 \newpage
 
