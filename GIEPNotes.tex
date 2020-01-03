@@ -1853,7 +1853,7 @@ From \cite{bib:determinants}.
             \item For every other element $a_{1t}$, move column $t$ over by $t-1$ columns to place $a_{1t}$ in the $(1,1)$ position.
             \item By the proof of Theorem \ref{trm:ijswitch}, the determinant of the new matrix is $(-1)^{t-1}|A|$.
             \item Note that $M_{1t}$ has not been altered by this process.
-            \item Since $a_{1t}|M_{1t}|$ gives all terms involving $a_{1t}$ in the expansion of $(-1)^{t-1}|A|$, multiplying through by $(-1)^{t+1}$ reveals that $a_{1t}\alpha{1t}$ gives all terms involving $a_{1t}$ in the original determinant $|A|$.
+            \item Since $a_{1t}|M_{1t}|$ gives all terms involving $a_{1t}$ in the expansion of $(-1)^{t-1}|A|$, multiplying through by $(-1)^{t+1}$ reveals that $a_{1t}\alpha_{1t}$ gives all terms involving $a_{1t}$ in the original determinant $|A|$.
         \end{itemize}
         \item Use the same method$^[$\footnote{Return to this method at a later date. This does not make sense.}$^]$ of moving rows and then multiplying through to prove the general case.
     \end{itemize}
@@ -1914,6 +1914,83 @@ From \cite{bib:determinants}.
     \begin{equation*}
         \delta_{ij}|A| = \sum_{t=1}^na_{it}\alpha_{jt} = \sum_{t=1}^na_{ti}\alpha_{tj}
     \end{equation*}
+\end{itemize}
+
+
+\subsection{Laplace's Expansion of a Determinant}
+\begin{itemize}
+    \item Let $A$ be an $m\times n$ matrix.
+    \item \dq{Let $s$ and $t$ be two positive integers such that $s\leq m$ [and] $t\leq n$}{bib:determinants}{21}
+    \item \textbf{Minor matrix} (of $A$): The $s\times t$ matrix $A_{j_1,j_2,\dots,j_t}^{i_1,i_2,\dots,i_s}$ that lies in the $i_1,i_2,\dots,i_s$ rows and in the $j_1,j_2,\dots,j_t$ columns of $A$.
+    \item \textbf{Minor determinant} (of $A$): The determinant $\left|A_{j_1,j_2,\dots,j_t}^{i_1,i_2,\dots,i_s}\right|$ of a minor matrix of $A$ where $s=t$.
+    \item \textbf{Complementary minor} (of a minor matrix): The $(m-s)\times(n-t)$ matrix $A_{j_{t+1},\dots,j_n}^{i_{s+1},\dots,i_m}$ that lies in the $i_{s+1},i_{s+2},\dots,i_m$ rows and in the $j_{t+1},j_{t+2},\dots,j_n$ columns of $A$.
+    \begin{itemize}
+        \item Note that only a minor matrix with $s<m$ and $t<n$ has a complementary minor.
+        \item Note that the matrix $A_{j_1,j_2,\dots,j_t}^{i_1,i_2,\dots,i_s}$ is also the complementary minor of $A_{j_{t+1},\dots,j_n}^{i_{s+1},\dots,i_m}$.
+    \end{itemize}
+    \item \textbf{Algebraic complement} (of the minor determinant $\left|A_{j_1,\dots,j_s}^{i_1,\dots,i_s}\right|$): The $(n-s)$-rowed signed determinant $(-1)^\rho \left|A_{j_{s+1},\dots,j_n}^{i_{s+1},\dots,i_n}\right|$ where $\rho = i_1+\cdots+i_s+j_1+\cdots+j_s$.
+    \begin{itemize}
+        \item Note that since $\sigma = i_{s+1}+\cdots+i_n+j_{s+1}+\cdots+j_n$ for the signed determinant, the following proves that $\rho$ and $\sigma$ are either both even or both odd.
+        \begin{align*}
+            \rho+\sigma &= i_1+\cdots+i_n+j_1+\cdots+j_n\\
+            &= 2(1+\cdots+n)
+        \end{align*}
+    \end{itemize}
+    \item \newtrm{trm:algcompment}\dq{If $M=A_{j_1,\dots,j_s}^{i_1,\dots,i_s}$ and $N=A_{j_{s+1},\dots,j_n}^{i_{s+1},\dots,i_n}$ are complementary minor matrices in a square matrix $A$, and if $(-1)^\rho|N|$ is the algebraic complement of $|M|$, then $(-1)^\rho|M|$ is the algebraic complement of $|N|$}{bib:determinants}{21}
+    \item \textbf{Principal minor} (matrix): A minor matrix $A_{i_1,i_2,\dots,i_s}^{i_1,i_2,\dots,i_s}$.
+    \item \textbf{Principal minor} (determinant): The determinant $\left|A_{i_1,i_2,\dots,i_s}^{i_1,i_2,\dots,i_s}\right|$ of a principal minor matrix.
+    \item \dq{The algebraic complement of a principal minor determinant is the same as its plain complement}{bib:determinants}{22}
+    \item Consider $A$ to be one of its own minor matrices. In this case, the algebraic complement of $|A|$ is defined as 1.
+    \item Theorem \ref{trm:laplace} is known as \textbf{Laplace's Theorem}, as it was discovered by the French mathematician Pierre-Simon Laplace.
+    \item \newtrm{trm:laplace}\dq{Let $A$ be an $n$-square matrix with elements in a field $\mathfrak{F}$. From $A$ select any $s$ rows, say the $i_1,i_2,\dots,i_s$ rows. From these $s$ rows form all the $s$-rowed determinants that can be obtained by selecting $s$ columns, say the $j_1,j_2,\dots,j_s$ columns. There will be $\frac{n!}{s!(n-s)!}$ such determinants. The sum of the products of these minor determinants, each by its algebraic complement, is equal to $|A|$, the determinant of $A$}{bib:determinants}{22} See Equation \ref{eqn:laplace}, where \dq[ and where $\rho$ is defined as above]{the summation extends over all the combinations ($j_1,j_2,\dots,j_s$) of the $n$ columns $1,2,\dots,n$ taken $s$ at a time}{bib:determinants}{22}
+    \begin{equation}\label{eqn:laplace}
+        \sum (-1)^\rho \left| A_{j_1,\dots,j_s}^{i_1,\dots,i_s} \right|\left|A_{j_{s+1},\dots,j_n}^{i_{s+1},\dots,i_n}\right| = |A|
+    \end{equation}
+    \begin{itemize}
+        \item Prove the theorem for the case where the $s$ rows and columns chosen are rows $1,2,\dots,s$ and columns $1,2,\dots,s$.
+        \begin{itemize}
+            \item Consider the principal minor determinant $\left|A_{1,\dots,s}^{1,\dots,s}\right|$ and its algebraic complement $\left|A_{s+1,\dots,n}^{s+1,\dots,n}\right|$. The terms of the product of the two are in the form given by Equation \ref{eqn:laplace2}.
+            \begin{equation}\label{eqn:laplace2}
+                (-1)^\sigma a_{1i_1}\cdots a_{si_s}(-1)^\tau a_{s+1j_{s+1}}\cdots a_{nj_n} = (-1)^\sigma\pi_1(-1)^\tau\pi_2
+            \end{equation}
+            \item Because $a_{1i_1}\cdots a_{si_s}a_{s+1j_{s+1}}\cdots a_{nj_n}$ contains an element from every row and every column of $A$ and because every element of $\pi_1$ forms a positive pair with every element of $\pi_2$, Equation \ref{eqn:laplace2} equals Equation \ref{eqn:laplace3}.
+            \begin{equation}\label{eqn:laplace3}
+                (-1)^{\sigma+\tau} a_{1j_1}\cdots a_{nj_n}
+            \end{equation}
+            \item Equation \ref{eqn:laplace3} is a term in the expansion of $|A|$.
+            \item Since all of the $s!$ terms of $\left|A_{1,\dots,s}^{1,\dots,s}\right|$ are distinct from all of the $(n-s)!$ terms of $\left|A_{s+1,\dots,n}^{s+1,\dots,n}\right|$, their product gives $s!(n-s)!$ terms of $|A|$.
+        \end{itemize}
+        \item Extend the theorem to the case where the $s$ rows chosen are rows $1,2,\dots,s$.
+        \begin{itemize}
+            \item Consider the minor matrix $M=\left|A_{l_1,\dots,l_s}^{1,\dots,s}\right|$.
+            \item Shifting the $l_1$-th column $l_1-1$ columns to the left, the $l_2$-th column $l_2-2$ columns to the left, the intervening columns, and finally the $l_s$-th column $l_s-s$ columns to the left, $M$ is brought to the region that the principal minor determinant occupied in the original case.
+            \item $M$ and its complement $N$ have not changed, and the determinant of the new matrix is given by Equation \ref{eqn:laplace4}.
+            \begin{equation}\label{eqn:laplace4}
+                |A_1| = (-1)^{l_1+\cdots+l_s-(1+\cdots+s)}|A|
+            \end{equation}
+            \item Multiplying through by $(-1)^\rho$ where $\rho=l_1+\cdots+l_s+(1+\cdots+s)$ yields the following change.
+            \begin{align*}
+                \sum |M|\cdot|N| &= (-1)^{l_1+\cdots+l_s-(1+\cdots+s)}|A|\\
+                \sum |M|(-1)^\rho|N| &= (-1)^{l_1+\cdots+l_s+(1+\cdots+s)}(-1)^{l_1+\cdots+l_s-(1+\cdots+s)}|A|\\
+                \sum |M|\cdot[\text{alg. comp. of }|M|] &= |A|
+            \end{align*}
+            \item Since there are ${n\choose s}=\frac{n!}{s!(n-s)!}$ products $|M|\cdot|N|$, each of which yields (by the results of the original case) $s!(n-s)!$ terms in the expansion of $|A|$, this process of using the first $s$ rows and any set of $s$ columns gives all $n!$ distinct terms in the expansion of $|A|$.
+        \end{itemize}
+        \item Extend the theorem to the general case.
+        \begin{itemize}
+            \item Select $s$ rows $k_1,\dots,k_s$.
+            \item Shift these rows upward to make them the first $s$ rows.
+            \item By the previous case, the following holds.
+            \begin{align*}
+                \sum |M|(-1)^{l_1+\cdots+l_s+(1+\cdots+s)}|N| &= (-1)^{k_1+\cdots+k_s-(1+\cdots+s)}|A|\\
+                \sum (-1)^\sigma|M|(-1)^{l_1+\cdots+l_s+(1+\cdots+s)}|N| &= (-1)^{k_1+\cdots+k_s+(1+\cdots+s)}(-1)^{k_1+\cdots+k_s-(1+\cdots+s)}|A|\\
+                \sum |M|(-1)^{k_1+\cdots+k_s+l_1+\cdots+l_s}(-1)^{2(1+\cdots+s)}|N| &= |A|\\
+                \sum |M|(-1)^{k_1+\cdots+k_s+l_1+\cdots+l_s}|N| &= |A|\\
+                \sum |M|(-1)^\rho|N| &= |A|\\
+                \sum |M|\cdot[\text{alg. comp. of }|M|] &= |A|
+            \end{align*}
+        \end{itemize}
+    \end{itemize}
 \end{itemize}
 \newpage
 
