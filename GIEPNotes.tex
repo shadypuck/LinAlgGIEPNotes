@@ -35,6 +35,7 @@
 \newcommand{\E}{\mathcal{E}}
 \newcommand{\G}{\mathcal{G}}
 \newcommand{\K}{\mathcal{K}}
+\newcommand{\Li}{\mathcal{L}}
 
 \newcommand{\T}{\text{T}}
 
@@ -2069,6 +2070,51 @@ From \cite{bib:determinants}.
     \begin{equation}\label{eqn:mult-s}
         |Q| = \left| P_{j_1,\dots,j_s}^{i_1,\dots,i_s} \right| = \sum_t \left| A_{t_1,\dots,t_s}^{i_1,\dots,i_s} \right|\left| B_{j_1,\dots,j_s}^{t_1,\dots,t_s} \right|
     \end{equation}
+\end{itemize}
+\newpage
+
+
+
+\section{Eigenvalues, Eigenvectors, and Invariant Subspaces}
+\subsection{Invariant Subspaces}
+\begin{itemize}
+    \item \textbf{Operator}: A linear map from a vector space to itself.
+    \begin{itemize}
+        \item Denote the set of operators on a vector space $V$ by $\Li(V)$.
+        \item Denote the set of all linear maps from $V$ to $W$ by $\Li(V,W)$ \cite[52]{bib:Axler}.
+        \item Denote an operator/element of $\Li(V)$/linear map by $T$.
+    \end{itemize}
+    \item Let $T$ be an operator on a vector space $V$ decomposable into a direct sum of proper subspaces, as follows.
+    \begin{equation*}
+        V = U_1 \oplus\cdots\oplus U_m
+    \end{equation*}
+    \begin{itemize}
+        \item To understand $T$, try to understand each $T|_{U_j}$.
+        \begin{itemize}
+            \item Let $T|_{U_j}$ denote \dq{the restriction of $T$ to the smaller domain $U_j$}{bib:Axler}{132}
+        \end{itemize}
+        \item Since $T|_{U_j}$ may not map $U_j$ onto itself in every case, consider only direct sum decompositions $T$ maps each $U_j$ into itself. A subspace that gets mapped onto itself is called an \textbf{invariant subspace}.
+    \end{itemize}
+    \item \textbf{Invariant subspace} (under $T$): A subspace $U$ of $V$ such that $u\in U \Rightarrow Tu\in U$, where $T\in\Li(V)$.
+    \item These subspaces of $V$ are invariant under $T\in\Li(V)$: $\{0\}$, $V$, $\text{null }T$, and $\text{range }T$$^[$\footnote{Note that $\text{range }T$ is equivalent to the column space of $T$, $C(T)$.}$^]$.
+    \item Example of an invariant subspace of $V$ besides $\{0\}$ and $V$: \dq{Suppose that $T\in\Li(\mathcal{P}(\R))$ is defined by $Tp=p'$. Then $\mathcal{P}_4(\R)$, which is a subspace of $\mathcal{P}(\R)$, is invariant under $T$ because if $p\in\mathcal{P}(R)$ has degree at most 4, then $p'$ also has degree at most 4}{bib:Axler}{133}
+    \begin{itemize}
+        \item \textbf{Polynomial}: \dq{A function $p:\F\rightarrow\F$\dots with coefficients in $\F$ [such that] there exist $a_0,\dots,a_m\in\F$ such that$$p(z) = a_0+a_1z+a_2z^2+\cdots+a_mz^m$$for all $z\in\F$}{bib:Axler}{30}
+        \item \dq{$\mathcal{P}(\F)$ is the set of all polynomials with coefficients in $\F$}{bib:Axler}{30}
+        \item \dq{For $m$ a nonnegative integer, $\mathcal{P}_m(\F)$ denotes the set of all polynomials with coefficients in $\F$ and degree at most $m$)}{bib:Axler}{31}
+    \end{itemize}
+    \item To begin a study of invariant subspaces, consider the simplest possible type of invariant subspace: those for which $\dim U = 1$.
+    \item For any $v\in V$ where $v\neq 0$, define $U$ as follows.
+    \begin{equation*}
+        U = \left\{ \lambda v:\lambda\in\F\right\} = \text{span}(v)
+    \end{equation*}
+    \item If $U$ is invariant under $T\in\Li(V)$, then $Tv\in U$.
+    \item If $Tv\in U$, then there exists $\lambda\in\F$ such that
+    \begin{equation}\label{eqn:eigendef}
+        Tv = \lambda v
+    \end{equation}
+    \item \textbf{Eigenvalue} (of $T$): A scalar $\lambda\in\F$ such that there exists $v\in V$ where $v\neq 0$ and Equation \ref{eqn:eigendef} is satisfied. \emph{Also known as} \textbf{characteristic value}$^[$\footnote{"Eigen" is German for "own."}$^]$.
+    \item \dq{$T$ has a 1-dimensional invariant subspace if and only if $T$ has an eigenvalue}{bib:Axler}{134}
 \end{itemize}
 \newpage
 
