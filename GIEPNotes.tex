@@ -2084,7 +2084,7 @@ From \cite{bib:determinants}.
         \item Denote the set of all linear maps from $V$ to $W$ by $\Li(V,W)$ \cite[52]{bib:Axler}.
         \item Denote an operator/element of $\Li(V)$/linear map by $T$.
     \end{itemize}
-    \item Let $T$ be an operator on a vector space $V$ decomposable into a direct sum of proper subspaces, as follows.
+    \item Let $T$ be an operator on a vector space $V$ that is decomposable into a direct sum of proper subspaces as follows.
     \begin{equation*}
         V = U_1 \oplus\cdots\oplus U_m
     \end{equation*}
@@ -2101,7 +2101,7 @@ From \cite{bib:determinants}.
     \begin{itemize}
         \item \textbf{Polynomial}: \dq{A function $p:\F\rightarrow\F$\dots with coefficients in $\F$ [such that] there exist $a_0,\dots,a_m\in\F$ such that$$p(z) = a_0+a_1z+a_2z^2+\cdots+a_mz^m$$for all $z\in\F$}{bib:Axler}{30}
         \item \dq{$\mathcal{P}(\F)$ is the set of all polynomials with coefficients in $\F$}{bib:Axler}{30}
-        \item \dq{For $m$ a nonnegative integer, $\mathcal{P}_m(\F)$ denotes the set of all polynomials with coefficients in $\F$ and degree at most $m$)}{bib:Axler}{31}
+        \item \dq{For $m$ a nonnegative integer, $\mathcal{P}_m(\F)$ denotes the set of all polynomials with coefficients in $\F$ and degree at most $m$}{bib:Axler}{31}
     \end{itemize}
     \item To begin a study of invariant subspaces, consider the simplest possible type of invariant subspace: those for which $\dim U = 1$.
     \item For any $v\in V$ where $v\neq 0$, define $U$ as follows.
@@ -2115,6 +2115,24 @@ From \cite{bib:determinants}.
     \end{equation}
     \item \textbf{Eigenvalue} (of $T$): A scalar $\lambda\in\F$ such that there exists $v\in V$ where $v\neq 0$ and Equation \ref{eqn:eigendef} is satisfied. \emph{Also known as} \textbf{characteristic value}$^[$\footnote{"Eigen" is German for "own."}$^]$.
     \item \dq{$T$ has a 1-dimensional invariant subspace if and only if $T$ has an eigenvalue}{bib:Axler}{134}
+    \item $\lambda$ is an eigenvalue of $T$, $T-\lambda I$ is not \textbf{injective}, $T-\lambda I$ is not \textbf{surjective}, and $T-\lambda I$ is not invertible are all equivalent conditions that $\lambda\in\F$ must pass to be an eigenvalue of $T\in\Li(V)$, where $V$ is finite dimensional.
+    \begin{itemize}
+        \item The first and second conditions are equivalent because for $\lambda$ to be an eigenvalue of $T$, Equation \ref{eqn:eigendef} must be satisfied. However, $Tv=\lambda v \Rightarrow (T-\lambda I)v=0$. Furthermore, if $T-\lambda I$ is injective, $N(T-\lambda I)=\{0\}$. But since $v\neq 0$, $T-\lambda I$ cannot be injective.
+        \begin{itemize}
+            \item From pg. 61: Suppose there exists $v\in\text{null }T$ and $v\neq 0$. Then $Tv=0=T(0)$. But since $T$ is injective, $v=0$, and we have arrived at a contradiction. Therefore, if $T$ is injective, $\text{null }T=\{0\}$.
+        \end{itemize}
+        \item Invertibility, injectivity, and surjectivity are all equivalent via the fundamental theorem of linear algebra.
+    \end{itemize}
+    \item \textbf{Injective} (function $T$): A function $T:V\rightarrow W$ such that $Tu=Tv\Rightarrow u=v$. \emph{Also known as} \textbf{one-to-one}.
+    \begin{itemize}
+        \item \dq{$T$ is injective if it maps distinct inputs to distinct outputs}{bib:Axler}{60}
+    \end{itemize}
+    \item \textbf{Surjective} (function $T$): A function $T:V\rightarrow W$ such that $\text{range }T=W$.
+    \begin{itemize}
+        \item The differentiation map $S\in\Li(\mathcal{P}_5(\R),\mathcal{P}_4(\R))$ defined by $Sp = p'$ is surjective because \dq{its range equals $\mathcal{P}_4(\R)$, which is now the vector space into which $S$ maps}{bib:Axler}{62}
+    \end{itemize}
+    \item \textbf{Eigenvector} (of $T$): A vector $v\in V$, where $v\neq 0$, corresponding to $\lambda\in\F$ that satisfies Equation \ref{eqn:eigendef} for some $T\in\Li(V)$.
+    \item \dq{A vector $v\in V$ with $v\neq 0$ is an eigenvector of $T$ corresponding to $\lambda$ if and only if $v\in\text{null}(T-\lambda I)$}{bib:Axler}{135}
 \end{itemize}
 \newpage
 
