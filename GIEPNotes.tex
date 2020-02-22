@@ -2133,6 +2133,137 @@ From \cite{bib:determinants}.
     \end{itemize}
     \item \textbf{Eigenvector} (of $T$): A vector $v\in V$, where $v\neq 0$, corresponding to $\lambda\in\F$ that satisfies Equation \ref{eqn:eigendef} for some $T\in\Li(V)$.
     \item \dq{A vector $v\in V$ with $v\neq 0$ is an eigenvector of $T$ corresponding to $\lambda$ if and only if $v\in\text{null}(T-\lambda I)$}{bib:Axler}{135}
+    \item Example: Let $T\in\Li(\F^2)$ be defined by $T(w,z)=(-z,w)$.
+    \begin{itemize}
+        \item Find the eigenvalues and eigenvectors of $T$ if $\F=\R$.
+        \begin{figure}[h!]
+            \centering
+            \begin{tikzpicture}[
+                vector/.style={color=#1,thick,->,scale=0.7},
+                every node/.style={black}
+            ]
+                \draw (-2,0) -- (2,0);
+                \draw (0,-2) -- (0,2);
+
+                \draw [vector=blue!50] (0,0) -- node[below]{$w$} (2,0);
+                \draw [vector=blue!50] (2,0) -- node[right]{$z$} (2,1);
+                \draw [vector=blue] (0,0) -- node[above]{$v$} (2,1);
+
+                \draw [vector=red!50] (0,0) -- node[below]{$-z$} (-1,0);
+                \draw [vector=red!50] (-1,0) -- node[left]{$w$} (-1,2);
+                \draw [vector=red] (0,0) -- node[above,xshift=1mm]{$v'$} (-1,2);
+            \end{tikzpicture}
+            \caption{$T$ provides a $90^\circ$ counterclockwise rotation in $\R^2$.}
+            \label{fig:T90counter}
+        \end{figure}
+        \begin{itemize}
+            \item Following from its definition, $T$ provides a counterclockwise rotation of $90^\circ$ in $\R^2$ (see Figure \ref{fig:T90counter}).
+            \item Since $T$ can only rotate real vectors (not scale them), it has no eigenvalues or eigenvectors when $\F=\R$.
+        \end{itemize}
+        \item Find the eigenvalues and eigenvectors of $T$ if $\F=\C$.
+        \begin{itemize}
+            \item In this case, the left and middle parts of the following equation are equal because of the definition of $T$. Furthermore, the left and right parts must be equal for some $\lambda\in\F$ there are to be eigenvalues.
+            \begin{equation*}
+                T
+                \begin{bmatrix}
+                    a+bi\\
+                    c+di\\
+                \end{bmatrix}
+                =
+                \begin{bmatrix}
+                    -c-di\\
+                    a+bi\\
+                \end{bmatrix}
+                =\lambda
+                \begin{bmatrix}
+                    a+bi\\
+                    c+di\\
+                \end{bmatrix}
+            \end{equation*}
+            \item Focusing on the middle and right parts, separate the vectors into a system of equations, as follows.
+            \begin{align*}
+                -c-di &= \lambda(a+bi)\\
+                a+bi &= \lambda(c+di)
+            \end{align*}
+            \item Treating the complex numbers $a+bi$ and $c+di$ as single variables, it becomes clear that this system can easily be solved for $\lambda$ by substituting the definition of $a+bi$ given by the second equation, above, into the first equation, above, and simplifying.
+            \begin{align*}
+                -c-di &= \lambda(\lambda(c+di))\\
+                -(c+di) &= \lambda^2(c+di)\\
+                -1 &= \lambda^2
+            \end{align*}
+            \begin{align*}
+                \lambda_1 &= i & \lambda_2 &= -i
+            \end{align*}
+            \item $\lambda_1$ and $\lambda_2$, above, are the eigenvalues of $T$.
+            \item Now for the eigenvectors. Returning to the initial vector equation and arbitrarily focusing on $\lambda_1$, consider the following.
+            \begin{align*}
+                -c-di &= i(a+bi)\\
+                -c-di &= ia+i^2b\\
+                -c-di &= -b+ai
+            \end{align*}
+            \item Draw associations between like parts to find $c$ and $d$ in terms of $a$ and $b$.
+            \begin{align*}
+                -c &= -b & -di &= ai\\
+                c &= b & d &= -a
+            \end{align*}
+            \item Make the above substitutions into the general vector $
+                \begin{bmatrix}
+                    a+bi\\
+                    c+di\\
+                \end{bmatrix}
+            $ to find the first eigenvector, $x_1$.
+            \begin{equation*}
+                x_1 =
+                \begin{bmatrix}
+                    a+bi\\
+                    b-ai\\
+                \end{bmatrix}
+                ,\ a,b\in\R
+            \end{equation*}
+            \item Repeat the process with $\lambda_2$ to find $x_2$.
+            \begin{equation*}
+                x_2 =
+                \begin{bmatrix}
+                    a+bi\\
+                    -b+ai\\
+                \end{bmatrix}
+                ,\ a,b\in\R
+            \end{equation*}
+            \item Thus, we have two distinct eigenvalues for $T$ and two distinct classes of eigenvectors. Any values of $a$ and $b$ in the forms given for $x_1$ and $x_2$ will be an eigenvector.
+        \end{itemize}
+    \end{itemize}
+    \item Linear independence of eigenvectors: \dq{Let $T\in\Li(V)$. Suppose $\lambda_1,\dots,\lambda_m$ are distinct eigenvalues of $T$ and $v_1,\dots,v_m$ are corresponding eigenvectors. Then $v_1,\dots,v_m$ is linearly independent}{bib:Axler}{136}
+    \begin{itemize}
+        \item Suppose $v_1,\dots,v_m$ is linearly dependent.
+        \begin{itemize}
+            \item $\lambda_1,\dots,\lambda_m$ remain distinct.
+        \end{itemize}
+        \item Let $k$ be the smallest positive integer satisfying the \textbf{Linear Dependence Lemma}.
+        \item By said lemma, there exists $a_1,\dots,a_{k-1}\in\F$ such that the following holds.
+        \begin{equation*}
+            v_k = a_1v_1+\cdots+a_{k-1}v_{k-1}
+        \end{equation*}
+        \item Apply $T$ to both sides of the above equation to yield the following.
+        \begin{equation*}
+            \lambda_kv_k = a_1\lambda_1v_1+\cdots+a_{k-1}\lambda_{k-1}v_{k-1}
+        \end{equation*}
+        \item Subtract the second equation from $\lambda_k$ times the first equation to yield the following.
+        \begin{equation*}
+            0 = a_1(\lambda_k-\lambda_1)v_1+\cdots+a_{k-1}(\lambda_k-\lambda_{k-1})v_{k-1}
+        \end{equation*}
+        \item By the criteria under which $k$ was selected, $v_1,\dots,v_{k-1}$ are linearly independent. Thus, for their sum to be 0, all coefficients must equal 0.
+        \item By the zero product property, either $a_j$ or $\lambda_k-\lambda_j$, where $j\in\{1,2,\dots,k-1\}$, must equal zero. Since all eigenvalues are distinct, no difference of eigenvalues is 0. Thus, ever $a_j=0$.
+        \item However, if $a_j=0$, by the first equation above, $v_k=0$.
+        \item Therefore, we have arrived at a contradiction.
+    \end{itemize}
+    \item \textbf{Linear Dependence Lemma}: If $v_1,\dots,v_m$ is a linearly dependent list in $V$, then there exists at least one value $j\in\{1,2,\dots,m\}$ such that $v_j\in\text{span}(v_1,\dots,v_{j-1})$ and if the $j^\text{th}$ term is removed from $v_1,\dots,v_m$, the span of the remaining list equals $\text{span}(v_1,\dots,v_m)$ \cite[34]{bib:Axler}.
+    \item A bound on the number of eigenvalues: \dq{Suppose $V$ is finite-dimensional. Then each operator on $V$ has at most $\dim V$ distinct eigenvalues}{bib:Axler}{136}
+    \begin{itemize}
+        \item Approach: Prove a bound on the number of eigenvectors.
+        \item Let $T\in\Li(V)$ have eigenvalues $\lambda_1,\dots,\lambda_m$.
+        \item Thus, $T$ has $m$ linearly independent corresponding eigenvectors $v_1,\dots,v_m$.
+        \item Since $\dim(\text{span}(v_1,\dots,v_m))$ cannot exceed $\dim V$, $m\leq\dim V$.
+    \end{itemize}
 \end{itemize}
 \newpage
 
