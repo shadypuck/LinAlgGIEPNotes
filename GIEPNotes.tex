@@ -2264,6 +2264,83 @@ From \cite{bib:determinants}.
         \item Thus, $T$ has $m$ linearly independent corresponding eigenvectors $v_1,\dots,v_m$.
         \item Since $\dim(\text{span}(v_1,\dots,v_m))$ cannot exceed $\dim V$, $m\leq\dim V$.
     \end{itemize}
+    \item On quotient spaces:
+    \begin{itemize}
+        \item Let $v+U$ be a subset (not a subspace) of $V$ defined by
+        \begin{equation*}
+            v+U = \left\{ v+u:v\in V,u\in u \right\}
+        \end{equation*}
+        \item Example:
+        \begin{figure}[h!]
+            \centering
+            \begin{tikzpicture}
+                \draw [->] (-0.3,0) -- (2,0);
+                \draw [->] (0,-0.5) -- (0,3);
+
+                \draw [red,thick,latex-latex] (-0.2,-0.4) -- node[anchor=east]{$U$} (1.4,2.8);
+                \draw [blue,thick,->] (0,0) -- node[anchor=north]{$v$} (1.7,2);
+                \draw [red!50!blue,thick,latex-latex] (0.5,-0.4) -- node[anchor=west]{$v+U$} (2.1,2.8);
+            \end{tikzpicture}
+            \caption{Visualizing $v+U$.}
+            \label{fig:vU}
+        \end{figure}
+        \begin{itemize}
+            \item Let $U=\left\{ (x,2x)\in\R^2:x\in\R \right\}$. Then $U$ can be conceived as the red line (with slope 2) in Figure \ref{fig:vU}.
+            \item Let $v\in\R^2$ be $v=(17,20)$ (the blue vector in Figure \ref{fig:vU}).
+            \item Then $v+U$ is the subset of $\R^2$ where every vector $u\in U$ has had $v$ added to it. This has the effect of creating a subset $v+U$ (the purple line in Figure \ref{fig:vU}).
+        \end{itemize}
+        \item \textbf{Affine subset} (of $V$): \dq{A subset of $V$ of the form $v+U$ for some $v\in V$ and some subspace $U$ of $V$}{bib:Axler}{94}
+        \item Affine subsets $v+U$ are \textbf{parallel} to $U$.
+        \begin{itemize}
+            \item See how the purple and red lines are parallel in Figure \ref{fig:vU}.
+        \end{itemize}
+        \item Note that parallel affine subsets of the $xy$-plane in $\R^3$ are also planes (not lines).
+        \item \textbf{Quotient space}: \dq{The set of all affine subsets of $V$ parallel to $U$}{bib:Axler}{95} \emph{Also known as} \textbf{\emph{V}/\emph{U}}. \emph{Symbolically defined as}
+        \begin{equation*}
+            V/U = \left\{ v+U:v\in V \right\}
+        \end{equation*}
+    \end{itemize}
+    \item \textbf{Restriction operator}: $T|_U(u)\in\Li(U)$ is defined by $T|_U(u)=Tu$ for $u\in U$.
+    \begin{itemize}
+        \item The fact that $U$ is invariant under $T$ is what allows us to consider $T|_U$ to be in $\Li(U)$ as opposed to just $\Li(V)$.
+    \end{itemize}
+    \item \textbf{Quotient operator}: $T/U\in\Li(V/U)$ is defined by $(T/U)(v+U)=Tv+U$ for $v\in V$.
+    \begin{itemize}
+        \item Verify that if $v+U=w+U$, then $Tv+U = Tw+U$.
+        \item If $v+U=w+U$, then $v-w\in U\Rightarrow T(v-w)\in U\Rightarrow Tv-Tw\in U\Rightarrow Tv+U=Tw+U$.
+    \end{itemize}
+    \item $T|_U$ and $T/U$ can tell us about $T$.
+    \item However, they also sometimes fail to tell us about $T$:
+    \begin{itemize}
+        \item Let $T\in\Li(\F^2)$ be defined by $T(x,y)=(y,0)$ and let $U=\left\{ (x,0):x\in\F \right\}$. Show that\dots
+        \begin{itemize}
+            \item $U$ is invariant under $T$ and $T|_U$ is the 0 operator on $U$.
+            \item There does not exist a subspace $W$ of $\F^2$ that is invariant under $T$ and such that $\F^2=U\oplus W$.
+            \item $T/U$ is the 0 operator on $\F^2/U$.
+        \end{itemize}
+        \item First:
+        \begin{itemize}
+            \item $u=(x,0) \Rightarrow Tu=(0,0)$.
+            \item $x\in\F \Rightarrow (0,0)\in U$.
+            \item Since every $Tu$ maps $u$ to a value in $U$, $U$ is invariant under $T$. Since that value $Tu$ is 0, $T|_U$ is the 0 operator.
+        \end{itemize}
+        \item Second:
+        \begin{itemize}
+            \item $\F^2=U\oplus W \Rightarrow W=\left\{ (0,y):y\in\F \right\}$.
+            \item For $w\in W$, $Tw=(y,0)$.
+            \item For every $w$ except 0, $T$ maps $w$ into $U$.
+        \end{itemize}
+        \item Third:
+        \begin{align*}
+            (T/U)((x,y)+U) &= (T/U)(x,y)+U\\
+            &= (y,0)+U\\
+            &= U
+        \end{align*}
+        \begin{itemize}
+            \item The last equality holds because $(y,0)\in U$.
+            \item Note that $U$ is the 0 of $\F^2/U$.
+        \end{itemize}
+    \end{itemize}
 \end{itemize}
 \newpage
 
